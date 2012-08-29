@@ -1,0 +1,186 @@
+{%include 'header.html'%}
+<!-- 正文 start -->
+<div class="umengADsystem_container">
+	<!-- 主标题start -->
+	<div class="umengADsystem_title_primary">应用列表 </div>
+	<!-- 主标题end -->
+	<!-- table start -->
+	<div class="umengADsystem_tabel_data">
+		<div class="part_operation">
+			<dl>
+				<dd class="addnew">
+					<input id="creatNewApp" type="button" value="创建应用" class="btn_add" style="padding-left:35px;" />
+				</dd>
+			</dl>
+		</div>
+		<div class="part_table"  id="applist">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<th>应用名称</th>
+						<th>url</th>
+						<th class="last" width="4%">删除</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+		</div>
+		<div class="part_foot"></div>
+	</div>
+	<!-- table end -->
+</div>
+<!-- 正文end -->
+<a href="/feedback" target="_blank" class="feed_back_all">反馈</a>
+<!-- del start -->
+<div class="umengADsystem_del" style="display:none;">
+	<h6><a href="javascript:void(0);" class="btn_close" title="关闭"></a>确认删除</h6>
+	<div class="main2">
+		<span>确定要删除该渠道么？</span>
+		<p class="umengADsystem_align_center" style="margin-top:20px;"><a href="#" class="btn_long btn_sure">确定</a><a href="#" class="btn_long btn_cancel">取消</a></p>
+	</div>
+</div>
+<!-- del end -->
+<!-- pop start -->
+<div class="umengADsystem_panel_pop" style="display:none;">
+	<h6><a href="javascript:void(0);" class="btn_close" title="关闭"></a>创建应用</h6>
+	<div class="main2">
+		<table cellspacing="0" cellpadding="0" border="0" width="100%" class="umengADsystem_table_form">
+			<tr class="third">
+				<th width="100"><span class="umengADsystem_font_blue">* </span>应用名称：</th>
+				<td><input type="text" style="width:230px;" name="appname" class="input_text"></td>
+			</tr>
+			<tr class="second">
+				<td></td>
+				<td><span class="tips_week_warning">应用名称为空或已存在此应用！</span></td>
+			</tr>
+			<tr class="third">
+				<th width="100"><span class="umengADsystem_font_blue">* </span>应用url：</th>
+				<td><input type="text" style="width:230px;" name="appurl" class="input_text"></td>
+			</tr>
+			<tr class="second">
+				<td></td>
+				<td><span class="tips_week_warning">应用url为空或格式不正确！</span></td>
+			</tr>
+			
+		</table>
+		<p class="umengADsystem_align_center" style="margin-top:20px;"><a href="#" class="btn_long">确定</a></p>
+	</div>
+</div>
+<!-- pop end -->
+</body>
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script>
+<script src="/javascripts/ios_channels/pageload.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	var domOperation = function(){
+		var t = this;
+		this.init = function(){
+			this.loadApp();
+			this.addApp();
+		};
+		this.loadApp = function(){
+			var options = {
+				url : window.ajaxBaseUrl+'/app/get/{{userId}}/',
+				type : 'GET',
+				dataType : 'jsonp',
+				operationDom : $('#applist table')
+			};
+			load.loadStart();
+			load.makeAjax(options,load.makeAppList);
+		};
+		this.addApp = function(){
+			var options = {
+				url : window.ajaxBaseUrl+'/app/register/{{userId}}/',
+				type : 'GET',
+				dataType : 'jsonp',
+				operationDom : $('#applist table')
+			};
+			$('.umengADsystem_panel_pop').delegate('.btn_long','click',function(){
+				option = {
+					appname : "required",
+					appurl : "required"
+				};
+				if(load.checkform(option)){
+					var name = $.trim($('.umengADsystem_panel_pop input[name="appname"]').val());
+					var url = $.trim($('.umengADsystem_panel_pop input[name="appurl"]').val());
+					var pattern = /(^http:\/\/)/;
+					if(!pattern.test(url)){
+						url == 'http://' + url;
+					}
+					options.params = {'appname':name,'url':url};
+					load.loadStart();
+					load.makeAjax(options,function(o,data){
+						load.loadEnd();
+						o.find('tbody').append('<tr id="'+data.appkey+'"><td class="umengADsystem_align_left"><a  href="/channels?app_key='+data.appkey+'" class="copy_link">'+name+'</a></td><td><div style="width:810px; overflow:hidden; word-warp:break-all;">'+url+'</div></td><td><a onclick="delApp(\''+data.appkey+'\',\''+name+'\')" class="ui-icon ui-icon-circle-close"></a></td></tr>');
+					});
+					$('.umengADsystem_panel_pop input[name="appname"]').val('');
+					$('.umengADsystem_panel_pop input[name="appurl"]').val('');
+					$.unblockUI();
+				}
+			})
+		};
+		
+		
+	}
+	var domOpt = new domOperation();
+	domOpt.init();
+})
+</script>
+<script type="text/javascript" src="/javascripts/ios_channels/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="/javascripts/ios_channels/ui.js"></script>
+<script type="text/javascript" src="/javascripts/ios_channels/jquery.blockUI-2.39.js"></script>
+<script type="text/javascript" >
+//弹出start
+$('#creatNewApp').click(function() { 
+        $.blockUI({ 
+            message:  $('.umengADsystem_panel_pop'), 
+            css: { 
+				width:'450',
+				top: '30%',
+				border:'none',
+				padding:'0',
+				cursor:'default',
+				textAlign:'left',
+				borderRadius:'5px',
+				boxShadow:'2px 2px 5px #000'
+			},
+			overlayCSS:{
+				backgroundColor: '#666',
+				cursor:'normal'
+			}
+        }); 
+      // setTimeout($.unblockUI, 2000); 
+    });
+$('.umengADsystem_panel_pop .btn_close').click(function(){//关闭blockUI
+	$.unblockUI();
+})
+//弹出end
+//展开、收起安装说明start
+$('.umengADsystem_combo h5').click(function(){
+	$(this).children('a').toggleClass('down');
+	$(this).next('.main_content').slideToggle();
+})
+//展开、收起安装说明end
+$('.umengADsystem_del .btn_close').click(function(){//关闭blockUI
+	$.unblockUI();
+})
+$('.umengADsystem_del .btn_cancel').click(function(){//关闭blockUI
+	$.unblockUI();
+})
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-34123762-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</html>

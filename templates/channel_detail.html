@@ -1,0 +1,230 @@
+{%include 'header.html'%}
+<!-- 正文 start -->
+<div class="umengADsystem_container">
+	<!-- 主标题start -->
+	<div class="umengADsystem_title_primary"><a href="#">&lt;&lt;返回渠道列表</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/apps">&lt;&lt;返回应用列表</a></div>
+	<!-- 主标题end -->
+	
+	<!-- 信息面板start -->
+	<div class="umengADsystem_panel_info app">
+		<div class="main">
+			<table cellspacing="0" cellpadding="0" border="0" width="100%">
+				<tbody>
+					<tr>
+						<th class="title">应用：</th>
+					</tr>
+					<tr>
+						<td class="title">http://itunes.apple.com/cn/app/</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- 信息面板end -->
+	<!-- 信息面板secondary start -->
+	<div class="umengADsystem_panel_info umengADsystem_panel_info_secondary channel" >
+		<div class="main">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<th class="title">渠道：</th>
+				</tr>
+				<tr>
+					<td class="title">http://itunes.apple.com/cn/app/</td>
+				</tr>
+			</table>
+		</div>
+		<div class="umengADsystem_panel_info_footer"></div>
+	</div>
+	<!-- 信息面板secondary end -->
+	<!-- table start -->
+	<div class="umengADsystem_tabel_data">
+		<div class="part_operation">
+			<span class="title">渠道明细</span>
+			<div class="right choose_time">
+				<p><input type="button" class="question" /></p>
+			</div>			
+		</div>
+		<div class="part_table">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<th>时间</th>
+						<th>点击(非iOS设备)</th>
+						<th>点击(iOS设备)</th>
+						<th>点击(总数)</th>
+						<th>激活</th>
+						<th class="last">转化率</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+		</div>
+		<div class="part_foot">
+			
+		</div>
+	</div>
+	<!-- table end -->
+	<div class="umengADsystem_tabel_data chart">
+		<div class="part_operation">
+			<span class="title">点击/激活趋势</span>
+		</div>
+		<div class="blockboxbg">
+			<div class="blockbox">
+			<div  tabfor=".ac0" class="bitem selbitem">点击</div>
+			<!--begin--><div  tabfor=".ac1" class="bitem">激活</div>
+			</div>
+		</div>
+		<div  class="tab_show ac0">
+			<div id="chartClick" class="chart_body"></div>
+		</div>
+		<div   class="tab_show ac1">
+			<div id="chartInstall" class="chart_body"></div>
+		</div>
+		<div class="part_foot">
+		</div>
+	</div>
+</div>
+
+<!-- 正文end -->
+<a class="feed_back_all" target="_blank" href="/feedback">反馈</a>
+<!-- pop start -->
+<div class="umengADsystem_panel_pop" style="display:none;">
+	<h6><a href="javascript:void(0);" class="btn_close" title="关闭"></a>添加渠道</h6>
+	<div class="main2">
+		<table cellspacing="0" cellpadding="0" border="0" width="100%" class="umengADsystem_table_form">
+			<tr class="third">
+				<th width="100"><span class="umengADsystem_font_blue">* </span>渠道名称：</th>
+				<td><input type="text" style="width:230px;" name=" " class="input_text"></td>
+			</tr>
+			<tr class="second">
+				<td></td>
+				<td><span class="tips_week_warning">渠道名称不能为空！</span></td>
+			</tr>
+		</table>
+		<p class="umengADsystem_align_center" style="margin-top:20px;"><a href="#" class="btn_long">确定</a></p>
+	</div>
+</div>
+<!-- pop end -->
+<!-- pop start -->
+<div class="umengADsystem_panel_que" style="display:none;">
+	<h6><a href="javascript:void(0);" class="btn_close" title="关闭"></a>渠道明细词汇表</h6>
+	<div class="main2">
+		<p><span>点击(非iOS设备)</span>来自不是iPad，iPhone，iPod的设备点击数量</p>
+		<p><span>点击(iOS设备)</span>来自iPad，iPhone，iPod的设备点击数量</p>
+		<p><span>点击(总数)</span>来自所有设备（包含PC）的点击总量</p>
+		<p><span>激活</span>激活iOS设备的总量</p>
+		<p><span>转化率</span>激活量/点击（移动设备）</p>
+	</div>
+</div>
+<!-- pop end -->
+<input type="hidden" id="userid" userid=<%=@user.id.to_s%> />
+</body>
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/javascripts/highcharts.js"></script>
+<script type="text/javascript" src="/javascripts/ios_channels/renderTools.js"></script>
+<script src="/javascripts/ios_channels/pageload.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	var cid = location.search.split('&')[0].split('=')[1];
+	var appid = location.search.split('&')[1].split('=')[1];
+	var domOperation = function(){
+		var t = this;
+		this.init = function(){
+			this.loadPage();
+		};
+		this.loadPage = function(){
+			var options = {
+				url : window.ajaxBaseUrl+'/channel/detail/'+appid+'/'+cid+'/',
+				type : 'GET',
+				dataType : 'jsonp',
+				operationDom : $('.part_table table')
+			};
+			load.loadStart();
+			load.makeAjax(options,load.makeChannelDetail);
+		};
+	}
+	var domOpt = new domOperation();
+	domOpt.init();
+})
+</script>
+<script type="text/javascript" src="/javascripts/ios_channels/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="/javascripts/ios_channels/ui.js"></script>
+<script type="text/javascript" src="/javascripts/ios_channels/jquery.blockUI-2.39.js"></script>
+<script type="text/javascript" >
+//弹出start
+$('#creatNewApp').click(function() { 
+        $.blockUI({ 
+            message:  $('.umengADsystem_panel_pop'), 
+            css: { 
+				width:'450',
+				top: '30%',
+				border:'none',
+				padding:'0',
+				cursor:'default',
+				textAlign:'left',
+				borderRadius:'5px',
+				boxShadow:'2px 2px 5px #000'
+			},
+			overlayCSS:{
+				backgroundColor: '#666',
+				cursor:'normal'
+			}
+        }); 
+      // setTimeout($.unblockUI, 2000); 
+    });
+$('.question').click(function() { 
+        $.blockUI({ 
+            message:  $('.umengADsystem_panel_que'), 
+            css: { 
+				width:'450',
+				top: '30%',
+				border:'none',
+				padding:'0',
+				cursor:'default',
+				textAlign:'left',
+				borderRadius:'5px',
+				boxShadow:'2px 2px 5px #000'
+			},
+			overlayCSS:{
+				backgroundColor: '#666',
+				cursor:'normal'
+			}
+        }); 
+      // setTimeout($.unblockUI, 2000); 
+    });
+$('.umengADsystem_panel_pop .btn_close,.umengADsystem_panel_que .btn_close').click(function(){//关闭blockUI
+	$.unblockUI();
+})
+//弹出end
+//展开、收起安装说明start
+$('.umengADsystem_combo h5').click(function(){
+	$(this).children('a').toggleClass('down');
+	$(this).next('.main_content').slideToggle();
+})
+//展开、收起安装说明end
+//tab
+$(".bitem").each(function(){
+	$(this).click(function(){
+		$(".selbitem").removeClass("selbitem");
+		$(this).addClass("selbitem");
+		$(".tab_show").addClass("hidden");
+		$($(this).attr("tabfor")).removeClass("hidden");
+	});
+});
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-34123762-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</html>

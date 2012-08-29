@@ -1,0 +1,145 @@
+{% include 'header.html' %}
+<div class="register">
+	<h1>填写信息：</h1>
+	<table width="800" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<th width="150">友盟账户</th>
+			<td><input type="text" class="input_text" id="userName" name=" " value="" /><span class="notice" style="display:inline">请填写友盟账户(已注册)</span></td>
+		</tr>
+		<!--<tr>
+			<th>密码</th>
+			<td><input type="password" class="input_text" id="userPwd" name=" " value="" /><span class="notice">请填写密码</span></td>
+		</tr>
+		<tr>
+			<th>确认密码</th>
+			<td><input type="password" class="input_text" id="userRepwd" name=" " value="" /><span class="notice">两次密码输入不一致</span></td>
+		</tr>-->
+		<tr>
+			<th>应用名称</th>
+			<td><input type="text" class="input_text" name=" " id="appName" value="" /><span class="notice">应用名称不能为空</span></td>
+		</tr>
+		<tr>
+			<th>应用appstore地址</th>
+			<td><input type="text" class="input_text" name=" " id="appUrl" value="" /><span class="notice">应用appstore地址不能为空</span></td>
+		</tr>
+		<tr>
+			<th>联系人邮箱</th>
+			<td><input type="text" class="input_text" name=" " id="email" value="" /><span class="notice">邮箱不能为空</span></td>
+		</tr>
+		<tr>
+			<th>QQ（可选）</th>
+			<td><input type="text" class="input_text" name=" " id="qq" value="" /></td>
+		</tr>
+		<tr>
+			<th></th>
+			<td><input type="button"  class="btn" name=" " id="submit" value="提交申请" /><a href="/">取消</a></td>
+		</tr>
+	</table>
+</div>
+<h2 class="main_title">谁在用</h2>
+<div class="inuse">
+	<ul class="list">
+		<li><a href="http://itunes.apple.com/cn/app/id416048305?mt=8" target="_blank"><img src="/images/ios_channels/app_meitu.png" width="115" height="115" alt="美图秀秀" />美图秀秀</a></li>
+		<li><a href="http://itunes.apple.com/cn/app/yin-yue-tai/id527477885?mt=8" target="_blank"><img src="/images/ios_channels//app_yinyuetai.png" width="114" height="114" alt="音悦台" />音悦台</a></li>
+		<li><a href="http://itunes.apple.com/cn/app/mo-ji-tian-qi-guan-fang/id434209233?mt=8" target="_blank"><img src="/images/ios_channels/app_moji.png" width="115" height="115" alt="墨迹天气" />墨迹天气</a></li>
+		<li><a href="http://itunes.apple.com/cn/app/id483336353?mt=8" target="_blank"><img src="/images/ios_channels/app_ttpod.png" width="115" height="115" alt="ttpod" />天天动听</a></li>
+		<li><a href="http://itunes.apple.com/cn/app/id466386383?mt=8" target="_blank"><img src="/images/ios_channels/app_buyu.png" width="114" height="114" alt="捕鱼生涯" />捕鱼生涯</a></li>
+		<li><a href="http://itunes.apple.com/cn/app/zhan-san-guo/id504491972?mt=8&ign-mpt=uo%3D4" target="_blank"><img src="/images/ios_channels/app_zhansanguo.png" width="114" height="114" alt="战三国" />战三国</a></li>
+		<li><a href="http://itunes.apple.com/cn/app/chang-ba-ni-de-shou-jiktv/id509885060?mt=8" target="_blank"><img src="/images/ios_channels/app_changba.png" width="114" height="114" alt="唱吧" />唱吧</a></li>
+	</ul>
+</div>
+{% include 'bottom.html'%}
+</body>
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script>
+<script src="/javascripts/ios_channels/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+<script src="/javascripts/ios_channels/jquery.blockUI-2.39.js" type="text/javascript"></script>
+<script src="/javascripts/ios_channels/pageload.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(".input_text").change(function(e) {
+        checkVal(this);
+    });
+    $("#submit").click(function(){
+    	var error = 0;
+    	$(".input_text").each(function(e,i){
+    		res = checkVal(this);
+    		if(res != true){
+    			error++;
+    		}
+    	});
+    	if(error == 0){
+    		var val;
+	     	$(".input_text").each(function(e,i){
+	     		val = val?val+"&":"";
+	     		val = val+$(this).attr("id")+"="+$.trim($(this).val());
+	    	});   		
+			$.getJSON(window.ajaxBaseUrl+"/users/register/?"+val+"&callback=?",
+				function(data){
+					if(data.status == 0){
+						alert_msg("系统繁忙，请稍后再试");
+					}else if(data.status < 0){
+						alert_msg("用户名已被占用，请更换！");
+					}else if(data.status == 1){
+						window.location.href="/prompt";
+					}else{
+						alert_msg("未知错误！请稍后再试");
+					}
+			});
+    	}
+    });
+    function checkVal(input){
+    	var id = $(input).attr("id");
+    	var value = $(input).val();
+    	var res = true;
+    	switch(id){
+    		case "userName":
+				if(!value.match(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{1,4})+$/i)){
+	    			 
+	    			res = "请输入正确邮箱帐号";
+	    		}
+	    		if(!value){
+	    			res = "帐号不能为空";
+	    		}
+	    		break;
+	    	case "appName":
+				if (value.match(/[`~!@#$%^&*{}\[\];:\'\"\/<>\\]|admin|root/i)) {
+				    res = "应用名称不能包含特殊字符";
+				}
+	    		break;
+	    	case "appUrl":
+	    		if(value){
+		    		if(!value.match(/http:\/\/|https:\/\//i) ){
+		    			res = "地址前要写http://或https://";
+		    		}	
+	    		}
+	    		break;
+	    	case "email":
+	    		//if(!value.match(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}/i)){
+	    		if(value){
+		    		if(!value.match(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{1,4})+$/i)){
+		    			res = "请输入正确邮箱";
+		    		}
+	    		}
+	    		break;
+    	}
+    	if(res == true){
+    		$(input).next(".notice").hide();
+    	}else{
+    		$(input).next(".notice").text(res).show();
+    	}
+    	return res;
+    }
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-34123762-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</html>

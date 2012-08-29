@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>UMtrack</title>
+<%= stylesheet_link_tag 'default' %>
+<link href="/stylesheets/ios_channels/portal.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<!-- header start -->
+<div class="header_wrap">
+	<div class="header">
+		<div class="part_link">
+			<%if !current_user.demo_user?%>
+			<a href="/users/sign_out">退出</a>
+			<%end%>
+		</div>
+		<div class="logo"><a href="http://www.umtrack.com/"></a></div>
+	</div>
+</div>
+<!-- header end -->
+<div class="prompt">
+	<p class="text_1">这款工具目前采用邀请制，如需试用联系：</p>
+	<p class="text_2">support@umeng.com</p>
+	<p style="position: absolute;top: 220px;padding: 0 165px;">请务必提供以下信息：公司名称、应用名称、应用描述、友盟账户（如果没有可以写想要注册的账号和密码），以方便我们审核你的资质。感谢你对友盟产品的支持！</p>
+	<a href="/" class="link_return">返回首页</a>
+</div>
+<h2 class="main_title">谁在用</h2>
+<div class="inuse">
+	<ul class="list">
+		<li><a href="http://itunes.apple.com/cn/app/id416048305?mt=8" target="_blank"><img src="/images/ios_channels/app_meitu.png" width="115" height="115" alt="美图秀秀" />美图秀秀</a></li>
+		<li><a href="http://itunes.apple.com/cn/app/yin-yue-tai/id527477885?mt=8" target="_blank"><img src="/images/ios_channels//app_yinyuetai.png" width="114" height="114" alt="音悦台" />音悦台</a></li>
+		<li><a href="http://itunes.apple.com/cn/app/mo-ji-tian-qi-guan-fang/id434209233?mt=8" target="_blank"><img src="/images/ios_channels/app_moji.png" width="115" height="115" alt="墨迹天气" />墨迹天气</a></li>
+		<li><a href="http://itunes.apple.com/cn/app/id483336353?mt=8" target="_blank"><img src="/images/ios_channels/app_ttpod.png" width="115" height="115" alt="ttpod" />天天动听</a></li>
+		<li><a href="http://itunes.apple.com/cn/app/id466386383?mt=8" target="_blank"><img src="/images/ios_channels/app_buyu.png" width="114" height="114" alt="捕鱼生涯" />捕鱼生涯</a></li>
+		<li><a href="http://itunes.apple.com/cn/app/zhan-san-guo/id504491972?mt=8&ign-mpt=uo%3D4" target="_blank"><img src="/images/ios_channels/app_zhansanguo.png" width="114" height="114" alt="战三国" />战三国</a></li>
+		<li><a href="http://itunes.apple.com/cn/app/chang-ba-ni-de-shou-jiktv/id509885060?mt=8" target="_blank"><img src="/images/ios_channels/app_changba.png" width="114" height="114" alt="唱吧" />唱吧</a></li>
+	</ul>
+</div>
+<a class="feed_back_all" target="_blank" href="/feedback">反馈</a>
+<%= render :partial => 'layouts/bottom' %>
+</body>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-34123762-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</html>

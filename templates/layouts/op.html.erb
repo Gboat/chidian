@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title><%= h(yield(:title) || "OP") %></title>
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+
+    <%= stylesheet_link_tag 'op/base_op'%>
+<style>
+#content_op {
+  width: 100%;
+}
+#top .top-con {
+width: 950px;
+padding-left: 27px;
+padding-right: 27px;
+}
+</style>
+    <%= yield(:head) %>
+<script type="text/javascript">var st_time = new Date().getTime();</script>
+  </head>
+  <body>
+    <div id="content_op">
+      <div class="con">
+     <%= render "op/top"   %>
+    <div class="conwrap">
+      <%= yield %>
+    </div>
+     <%= render "op/bottom"   %>
+  </div>
+    </div>
+  </body>
+</html>
+
+<%= stylesheet_link_tag 'dateinput', 'nyroModal', :cache => 'cached_lay_op'%>
+<%= javascript_include_tag "jquery.min", "jquery-ui", "jquery.tablesorter.2.0",'jquery.tools.min', 'jquery.nyroModal.js', :cache=>'cached_lay_op' %>
+<script type="text/javascript">  $(".infotab").tablesorter();</script>
+
+<script type="text/javascript">
+$.tools.dateinput.localize("zh_cn",  {
+    months:         '一月,二月,三月,四月, 五月,六月,七月,八月,九月,十月,十一月,十二月',
+    shortMonths:   '一,二,三,四,五,六,七,八,九,十,十一,十二',
+    days:          '星期一,星期二,星期三,星期四,星期五,星期六,星期日',
+    shortDays:     '日,一,二,三,四,五,六'
+ });
+
+$(":date").dateinput({lang: 'zh_cn', format: 'yyyy-mm-dd',selectors: true,firstDay:1});
+</script>

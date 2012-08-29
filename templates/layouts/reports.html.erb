@@ -1,0 +1,440 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title><%= h(yield(:title) || "Untitled") %></title>
+    <link rel="shortcut icon" href="/images/favicon.ico"/>
+    <%= csrf_meta_tag %>
+    <%= stylesheet_link_tag 'base', 'pagination', 'dateinput',  'myproduct_layout' ,'jquery.tzSelect','style', :cache => 'cached_report'%>
+    <%= yield(:head) %>
+    <%= display_meta_tags :site => 'Umeng.com' %>
+  </head>
+  <body>
+    <div id="b_wrap" class="web_width">
+      <%= render "shared/back/top" %>
+      <div style="position:relative;width:950px;">
+         <%= render 'reports/tip' %>
+      </div>
+      <div class="clear"></div>
+      <div id="b_center">
+        <div class="fl b_leftmenu">
+          <div class="b_product_sel">
+            <% base_url = request.fullpath %>
+
+            <select class="ltselect" onchange="showSelect(this.value)" style="display:none">
+              <option selected='selected' value="<%= @app.to_param %>">
+                <%= @app.name %>
+              </option>
+              <% @apps.try(:reject){|a| a.id == @app.id }.each do |app| %>
+                <option value="<%= app.to_param %>">
+                  <%= app.name %>
+                </option>
+              <% end %>
+            </select>
+
+            <div class="b_backtoapp"><a href="<%= apps_path %>"><span class="fl"><pre>«</pre></span> 返回我的产品首页</a>
+
+              <div class="clear"></div>
+            </div>
+          </div>
+          <div >
+            <div class="accordion">
+              <% if current_user.has_permission_to_group?([{:report => :index}, {:report => :app_version}, {:report => :cpu_gpu}]) %>
+                <h2 class="l_m_controls current has_son_menu" >统计概况</h2>
+                <div class="pane_con">
+                  <ul>
+                    <%= render :partial => 'shared/reports_basis' %>
+                  </ul>
+                </div>
+              <% end %>
+
+              <% if current_user.has_permission_to_group?([{:report=>:retention}, {:report=>:location}, {:report=>:launch}, {:report=>:duration}, {:report=>:path}]) %>
+                <h2 class="l_m_controls has_son_menu">用户分析</h2>
+                <div class="pane_con">
+                  <ul>
+                    <%= render :partial => 'shared/reports_user' %>
+                  </ul>
+                </div>
+              <% end %>
+
+              <% if current_user.has_permission_to_group?([{:report=>:channel_pack}, {:report => :channel}]) %>
+                <h2 class="l_m_controls has_son_menu">渠道分析<span class="icon_tips" >new</span></h2>
+                <div class="pane_con">
+                  <ul>
+                    <li><%= link_to_class_if('渠道列表'.html_safe,channel_app_reports_path(@app),['reports','channels'],['channel','show'],'','channel_app_reports_path','click') if current_user.has_permission_to?(:report, :channel)%></li>
+                    <li><%= link_to_class_if('渠道管理'.html_safe, accounts_app_channels_path(@app), 'channels', 'accounts','','accounts_app_channels_path','click') if current_user.has_permission_to?(:channel, :accounts)%></li>
+                    <%if false && @app.platform == "android"%>
+                    <li><%= link_to_class_if('渠道打包工具<span class="icon_tips" >beta</span>'.html_safe,channel_pack_app_reports_path(@app),'reports','channel_pack','','channel_pack_app_reports_link','click') %></li>
+                    <%end%>
+                  </ul>
+                </div>
+              <% end %>
+
+              <% if current_user.has_permission_to_group?([{:report=>:device}, {:report=>:os}, {:report=>:resolution}, {:report=>:carrier}, {:report=>:access}]) %>
+                <h2 class="l_m_controls has_son_menu">终端及网络</h2>
+                <div class="pane_con">
+                  <ul>
+                    <li><%= link_to_class_if('设备',device_app_reports_path(@app),'reports','device','','device_app_reports_path','click') if current_user.has_permission_to?(:report, :device)%></li>
+                    <li><%= link_to_class_if('操作系统',os_app_reports_path(@app),'reports','os','','os_app_reports_path','click')  if current_user.has_permission_to?(:report, :os) %></li>
+                    <li><%= link_to_class_if('分辨率',resolution_app_reports_path(@app),'reports','resolution','','resolution_app_reports_path','click')  if current_user.has_permission_to?(:report, :resolution)%>
+                    </li><li><%= link_to_class_if('运营商',carrier_app_reports_path(@app),'reports','carrier','','carrier_app_reports_path','click')  if current_user.has_permission_to?(:report, :carrier) %></li>
+                    <li><%= link_to_class_if('联网方式',access_app_reports_path(@app),'reports','access','','access_app_reports_path','click')  if current_user.has_permission_to?(:report, :access) %></li>
+                  </ul>
+                </div>
+              <% end %>
+
+              <% if current_user.has_permission_to_group?([{:event => :index}, {:event => :dashboard}]) %>
+              <%@event_auto_comp = true%>
+                <h2 class="l_m_controls has_son_menu">自定义事件</h2>
+
+                <div class="pane_con">
+                  <ul>
+                    <li><%= link_to_class_if('事件列表', dashboard_app_events_path(@app), 'events', ['dashboard','event_params','show'],'','dashboard_app_events_path','click') if current_user.has_permission_to?(:event, :dashboard)%></li>
+                    <li><%= link_to_class_if('事件管理', app_events_path(@app), 'events', 'index','','app_events_path','click') if current_user.has_permission_to?(:event, :index)%></li>
+                    <li>
+	                    <a href="javascript:void(0);">
+	                      <div class="fr events_search search_input">
+	                        <input id="search_event" type="text"style="text-align:left;display:none" value="<%= params[:name]%>"/>
+	                        <input id="search_event_val" type="text" placeholder="事件名称"  class="search_value" style="" value="<%= params[:name]%>"/>
+	                        <div class="search_arrow fr" onclick="search_event();"></div>
+	                      </div>
+	                      <div class="clear"></div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              <% end %>
+
+              <% if current_user.has_permission_to?(:funnel, :index) %>
+                <h2 class="l_m_controls has_son_menu">转化率分析<span class="icon_tips" >beta</span></h2>
+                <div class="pane_con">
+                  <ul>
+                    <li><%= link_to_class_if('漏斗模型',app_funnels_path(@app),'funnels',['index','show'],'','app_funnels_path','click') if current_user.has_permission_to?(:funnel, :index)%></li>
+                  </ul>
+                </div>
+              <% end %>
+
+              <% if current_user.has_permission_to_group?([{:error_type=>:index}]) %>
+                <h2 class="l_m_controls has_son_menu">错误分析</h2>
+                <div class="pane_con">
+                  <ul>
+                    <li><%= link_to_class_if('错误分析',app_error_types_path(@app),'error_types',['index','show', 'errors'],'','app_error_types_path','click') if current_user.has_permission_to?(:error_type, :index)%></li>
+                  </ul>
+                </div>
+              <% end %>
+              <% if current_user.has_permission_to_group?([{:online_config=>:show_parameters}]) %>
+                <h2 class="l_m_controls has_son_menu">在线参数</h2>
+                <div class="pane_con">
+                  <ul>
+                    <li><%= link_to_class_if('在线参数',show_parameters_app_online_config_path(@app),'online_config','show_parameters','','show_parameters_app_online_config_path','click') if current_user.has_permission_to?(:online_config, :show_parameters)%></li>
+                  </ul>
+                </div>
+              <% end %>
+
+              <% if ["android", "iphone"].include?(@app.platform) and current_user.has_permission_to?(:report, :benchmark) %>
+                <h2 class="l_m_controls has_son_menu">行业数据</h2>
+
+                <div class="pane_con">
+                  <ul>
+                    <%= render :partial => 'shared/reports_advance' %>
+                  </ul>
+                </div>
+              <% end %>
+
+              <% if current_user.has_permission_to_group?([{:app=>:update}, {:online_config=>:show_log_send_policy}, {:event=> :index}, {:channel=> :accounts}, {:report=>:email_notify_setting}]) %>
+                <h2 class="l_m_controls has_son_menu">设置</h2>
+                <div class="pane_con">
+                  <ul>
+                    <% if current_user.can_edit_app?(@app) %>
+                      <li><%= link_to_class_if('编辑应用', edit_app_path(@app), 'apps', 'edit','','edit_app_path','click') if current_user.has_permission_to?(:app, :update)%></li>
+                      <li><%= link_to_class_if('邮件通知'.html_safe, email_notify_setting_app_reports_path(@app), 'reports', 'email_notify_setting','','email_notify_setting_app_reports_path','click') if current_user.has_permission_to?(:report, :email_notify_setting) %>
+                      </li>
+                    <% else %>
+                      <li><a class="disabled-link">编辑应用</a></li>
+                      <li><a class="disabled-link">邮件通知</a></li>
+                    <% end %>
+                    <li><%= link_to_class_if('发送策略'.html_safe, show_log_send_policy_app_online_config_path(@app),
+                          'online_config', 'show_log_send_policy','','show_log_send_policy_app_online_config_path','click') if current_user.has_permission_to?(:online_config, :show_log_send_policy)%></li>
+                  </ul>
+                </div>
+              <% end %>
+
+            </div>
+
+          </div>
+          <div class="kong35"></div>
+          <%= render "shared/b_sdk_down" %>
+          <%# render "shared/disanfang_share" %>
+        </div>
+        <%= yield %>
+        <div class="clear"></div>
+      </div>
+      
+
+      <div id="salonForm_wrap" style="display:none;">
+        <div id="salonForm">
+          <form id="salonForm_form" action="<%= apply_promotion_path %>" method="post">
+            <table cellpadding="0" cellspacing="0" border="0" width="460">
+              <tr>
+                <td height="20" colspan="4"></td>
+              </tr>
+              <tr>
+                <td height="20" colspan="4"><span class="tg_rss"><img src="/images/new_ui/report/report_subscribe_close_normal.png" alt=""/></span></td>
+              </tr>
+              <tr>
+                <td height="30" colspan="4"><h3 class="title">申请加入应用联盟<a href="/promotion" target="_blank" style="font-size:12px;color:blue;font-weight:60px;margin-left:120px;">应用联盟服务介绍 >></a><br/></h3>
+                  <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:grey;font-size:12px;">目前仅对android应用开放，iOS将于近期开放，敬请期待！</span>
+                  <div class="clear"></div>
+                </td>
+              </tr>
+              <tr>
+                <td width="10"></td>
+                <td valign="middle" align="right" width="145"><b style="color: red">*</b>联系人&nbsp;&nbsp;</td>
+                <td align="left" width="155"><input type="text" name="name" value="<%= @application_form.name if @application_form.present? %>" class="in"/></td>
+                <td class="status" width=""></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td valign="middle" align="right"><b style="color: red">*</b>Email&nbsp;&nbsp;</td>
+                <td align="left"><input type="email" name="email" value="<%= @application_form.present? ? @application_form.email : current_user.email %>" class="in"/></td>
+                <td class="status"></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td valign="middle" align="right"><b style="color: red">*</b>电话&nbsp;&nbsp;</td>
+                <td align="left"><input type="text" name="phone"  minlength='6' value="<%= @application_form.present? ? @application_form.phone : current_user.phone %>" class="in"/></td>
+                <td class="status"></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td valign="middle" align="right"><b style="color: red">*</b>公司名&nbsp;&nbsp;</td>
+                <td align="left"><input type="text" name="company" value="<%= @application_form.company if @application_form %>" class="in"/></td>
+                <td class="status"></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td valign="middle" align="right"><b style="color: red">*</b>您的职位&nbsp;&nbsp;</td>
+                <td align="left"><input type="text" name="title" value="<%= @application_form.title if @application_form %>" class="in"/></td>
+                <td class="status"></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td valign="middle" align="right"><b style="color: red">*</b>公司网址&nbsp;&nbsp;</td>
+                <td align="left"><input type="url" name="site_url" minlength='12' value="<%= @application_form.present? ? @application_form.site_url : 'http://' %>" class="in"/></td>
+                <td class="status"></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td valign="middle" align="right"><b style="color: red">*</b>主推应用名称&nbsp;&nbsp;</td>
+                <td align="left"><input type="text" name="app_name" value="<%= @application_form.app_name if @application_form %>" class="in"/></td>
+                <td class="status"></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td valign="middle" align="right"><b style="color: red">*</b>应用下载网址&nbsp;&nbsp;</td>
+                <td align="left"><input type="url" name="app_url" minlength='12' value="<%= @application_form.present? ? @application_form.app_url : 'http://' %>" class="in"/></td>
+                <td class="status"></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td colspan="3">
+                  <div class="sa_ej_info" style='padding:2px 50px;'>我们收到您的申请信息后，会通过邮件或电话跟您确认。<br/><b style="color: red">*</b>为必填项！</div>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td align="right"></td>
+                <td align="left">
+                  <input type="image" src="/images/new_ui/apply_normal.png" class="sub_image" value="&nbsp;" name="commit"/>
+                </td>
+                <td class="status"></td>
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
+    </div>
+    <%= render "shared/back/bottom" %>
+    <%= javascript_include_tag "jquery.min",'jquery.tools.min', "highcharts", 'jquery.blockUI','rails', 'jquery.validate.1.8.0', 'jquery.autocomplete-min', :cache => 'cached_report' %>
+    <%= javascript_include_tag 'form.validator', 'common', 'tzSelect/jquery.tzSelect', 'table', 'dialog', 'date', 'chart', :cache => 'cached_report_cus' %>
+    <!--[if (gte IE 6)&(lte IE 8)]>
+      <%# javascript_include_tag 'selectivizr-min' %>
+    <![endif]-->
+
+    <script type="text/javascript">
+
+      $(function() {
+        if ((cookie_get('tip_closed') == 'true')) {
+          $(".b_home_tips").hide();
+          $('#b_center').removeAttr('style');
+          $('body').removeAttr('style');
+        };
+        //新select样式 --begin
+        $('body').delegate('.select_arrow,.selected_value','click',function(e){
+        	e.stopPropagation();
+          $(this).nextAll('.select_list_body').slideToggle(200);
+        });
+  //      $('body').delegate('.select_list_body  li:not(.noClick)','click',function(e){
+  //         e.stopPropagation();
+  //         $(this).closest('.select_option').find('.selected_value').text($(this).find('a').text());
+  //         $(this).closest('.select_list_body').slideToggle(200);
+  //      });
+        $(document).click(function(e){
+        	e.stopPropagation();
+        	 if($(e.target).is(".compared_date_select")||$(e.target).closest('.compared_date_select').length>0||$(e.target).closest('.select_option').length>0||$(e.target).closest('#calroot').length>0){//calroot
+        	 	return false;
+        	 }
+        	$('.select_list_body').slideUp(200);
+        });
+        $('body').delegate('.select_list_body ul li.date_picker','click',function(e){
+        	e.stopPropagation();
+        	$(this).next('li').slideToggle(200);
+        	
+        });
+        
+        //左侧菜单切换
+        $.tools.tabs.addEffect("slide", function(i, done) {
+          this.getPanes().slideUp().css({backgroundColor: "#fff"});
+          this.getPanes().eq(i).slideDown(function() {
+            $(this).css({backgroundColor: 'transparent'});
+            done.call();
+          });
+        });
+        $(".accordion").tabs(".accordion div.pane_con", {tabs: 'h2.l_m_controls', effect: 'slide', initialIndex: null});
+
+        $(".accordion .l_m_controls").removeClass("current");
+        //根据当前导航菜单，取得当前连接的外围，将其显示
+        var a_c = $(".b_leftmenu .accordion").find("a.current");
+        $(a_c).parent().parent().parent().show();
+        $(a_c).parent().parent().parent().prev(".l_m_controls").addClass("current");
+
+        $(".enent_son_menu_wrap").hide();
+        $("a.event_show").hover(function() {
+          var e_h = $(".enent_son_menu_wrap").height();
+          $(".enent_son_menu_wrap").css("top", -e_h + 22);
+          $(".pane_con a").removeClass("current");
+          $(this).addClass("current");
+        });
+
+        var option_l = $('select.ltselect option').length;
+        if (option_l > 0) {
+          $('select.ltselect').tzSelect();
+        };
+
+        $("#salonForm_form").validate({
+          rules: {
+            phone: {
+              required: true
+            },
+            name: {
+              required: true
+            },
+            email: {
+              required: true,
+              email: true
+            },
+            company: {
+              required: true
+            },
+            title: {
+              required: true
+            },
+            site_url: {
+              required: true
+            },
+            app_name: {
+              required: true
+            },
+            app_url: {
+              required: true
+            }
+          },
+          messages: {
+            phone: {
+              required: "必填",
+              minlength: '无效'
+            },
+            name: {
+              required: "必填"
+            },
+            email: {
+              required: "必填",
+              email: "无效"
+            },
+            company: {
+              required: "必填"
+            },
+            title: {
+              required: "必填"
+            },
+            site_url: {
+              required: "必填",
+              minlength: '无效'
+            },
+            app_name: {
+              required: "必填"
+            },
+            app_url: {
+              required: "必填",
+              minlength: '无效'
+            }
+          },
+          // the errorPlacement has to take the table layout into account
+          errorPlacement: function(error, element) {
+            error.appendTo(element.parent().next());
+          },
+          // set this class to error-labels to indicate valid fields
+          success: function(label) {
+            // set &nbsp; as text for IE
+            label.html("&nbsp;").addClass("checked");
+          }
+        });
+
+        $('a.apply_promotion,a.apply_promotion_old').click(function() {
+          pop_dialog($('#salonForm_wrap'), '460px', '500px', '', '20%');
+          return false;
+        });
+
+        <%if @event_auto_comp%>
+        var evs=<%= @app.event_groups.map{|x| [x.try(:display_name) || '', x.try(:name)] || [] }.flatten.reject{|x| x==""}.to_json.html_safe %>;
+        var sev = $("#search_event_val");
+        sev.autocomplete({
+          delimiter: /(,|;)\s*/,
+          noCache: false,
+          width: 171,
+          onSelect: function(value, data){
+            window.location.href="<%= dashboard_app_events_path(@app)%>?name="+value;
+          },
+          lookup:evs 
+        });
+        var text = $("#search_event").val();
+        if(text==""){
+          text="事件名称";
+        }
+        sev.val(text);
+        sev.css("color","grey");
+        sev.blur(function(){
+          $("#search_event").val(sev.val());
+        });
+        sev.focus(function(){
+          sev.css("color","black");
+          sev.val('');
+        });
+        <%end%>
+
+<% if !admin_signed_in? %>
+      $('.b_home_tips a.click_link_url').live('click', function() {
+        pop_dialog($('#salonForm_wrap'), '460px', '500px', '', '20%');
+        return false;
+      })
+<% end %>
+  });
+    function search_event(){
+      var name=$("#search_event").val();
+      window.location.href="<%= dashboard_app_events_path(@app)%>?name="+name;
+    }
+    </script>
+    <%= yield(:bottom_js) %>
+  </body>
+</html>
