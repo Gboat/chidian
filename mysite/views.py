@@ -14,7 +14,7 @@ def users(request):
 	auth = hashlib.md5(userName+userPwd+'KEY')
 	auth.digest()
 	if userName and userPwd:
-		url = 'http://127.0.0.1/demo.php'
+		'''url = 'http://127.0.0.1/demo.php'
 		data = {'email': userName, 'pwd': userPwd, 'auth':auth.hexdigest()}
 		res = json.loads(func.post(url,data))
 		if res['result'] == '1':
@@ -25,7 +25,10 @@ def users(request):
 			request.session['userName'] = ''
 		return HttpResponse(res['result'])
 	else:
-		return HttpResponse('-1')
+		return HttpResponse('-1')'''
+		request.session['userName'] = userName
+		request.session['userId'] = '4fb22e855270152b4b00003a'
+		return HttpResponse('1')
 
 def logout(request):
 	request.session['userName'] = ''
