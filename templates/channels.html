@@ -2,7 +2,7 @@
 <!-- 正文 start -->
 <div class="umengADsystem_container">
 	<!-- 主标题start -->
-	<div class="umengADsystem_title_primary"><a href="/apps">&lt;&lt;返回应用列表</a> </div>
+	<div class="umengADsystem_title_primary"><a href="/apps">&lt;&lt;返回应用列表</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="issue_box_href">进入Issue Box&gt;&gt;</a> </div>
 	<!-- 主标题end -->
 	
 	<!-- 信息面板start -->
@@ -233,6 +233,7 @@ window.endDate = location.search.split('=')[3] || '';
 window.endDate = window.endDate.split('&')[0] || '';
 if(window.appkey!=''){
 	$('.appkey').html(window.appkey);
+	$("#issue_box_href").attr("href",location.href.replace("channels","feedback"));
 }
 $(function(){
 	var domOperation = function(){
