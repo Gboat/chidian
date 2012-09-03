@@ -1,4 +1,4 @@
-window.ajaxUrl = "http://10.18.101.94:8000";
+window.ajaxUrl = "http://211.151.139.230:8000";
 $(function(){
 	gettag();
 	getchannel();
@@ -437,7 +437,9 @@ function edittag(content){
 			$("#tag_sel").show();
 			$("#tag_sel ul li").click(function(e) {
 				var tag = $(this);
+				tag.append("<img class='tag_loading' src='/images/loading.gif' />");
 				$.post(window.ajaxUrl+"/issue/comment/update/",{appkey:urlGet("app_key"), channel: urlGet("channel")!=""?urlGet("channel"):"all", commentkey: content.children("input").val(), tagkey: tag.attr("key"),action: tag.attr("sel")==0?"add":"delete"},function(data){
+					$(".tag_loading").remove();
 					if(tag.attr("sel")!=1){
 						tag.attr("style","border-color:"+creatColor(tag.attr("color"))+";background:"+creatColor(tag.attr("color"))+";color:#FFF");
 						tag.attr("sel","1");

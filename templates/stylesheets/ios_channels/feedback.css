@@ -46,3 +46,5 @@
 #tag_sel ul li span{ display:none;}
 .jiathis_style{ display:none; padding-right:5px; margin-top:10px; vertical-align:middle;}
 .link .jiathis_style{ margin-top:0;}
+.tag_loading{ display:none;}
+#tag_sel ul li .tag_loading{ display:inline-block; float:right; margin:3px;}
