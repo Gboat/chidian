@@ -11,12 +11,13 @@ import json
 def users(request):
 	userName = request.POST['userName']
 	userPwd = request.POST['userPwd']
-	auth = hashlib.md5(userName+userPwd+'KEY')
+	auth = hashlib.md5(userName+userPwd+'_umtrack_api_')
 	auth.digest()
 	if userName and userPwd:
-		'''url = 'http://127.0.0.1/demo.php'
+		url = 'http://www.umeng.com/users/login_verify'
 		data = {'email': userName, 'pwd': userPwd, 'auth':auth.hexdigest()}
 		res = json.loads(func.post(url,data))
+		print 'res', res
 		if res['result'] == '1':
 			request.session['userName'] = userName
 			request.session['userId'] = res['user_id']
@@ -25,10 +26,7 @@ def users(request):
 			request.session['userName'] = ''
 		return HttpResponse(res['result'])
 	else:
-		return HttpResponse('-1')'''
-		request.session['userName'] = userName
-		request.session['userId'] = '4fb22e855270152b4b00003a'
-		return HttpResponse('1')
+		return HttpResponse('-1')
 
 def logout(request):
 	request.session['userName'] = ''

@@ -53,7 +53,7 @@ $(function(){
 
 	}else{
 		var d = new Date();
-		get.date = get.date?get.date:d.getFullYear()+"-"+((d.getMonth()+1)<10?"0"+(d.getMonth()+1):(d.getMonth()+1))+"-"+(d.getDate());
+		get.date = get.date?get.date:d.getFullYear()+"-"+((d.getMonth()+1)<10?"0"+(d.getMonth()+1):(d.getMonth()+1))+"-"+(d.getDate()<10?"0":"")+d.getDate();
 		getTable(get.date);
 
 	}
@@ -134,14 +134,14 @@ function checkUser(e,to){
 			<table id="table" width="100%" border="0" cellspacing="0" cellpadding="0">
 				<thead>
 					<tr>
-						<th>应用</th>
-						<th>渠道</th>
-						<th>点击</th>
-						<th>点击(Mobile)</th>
-						<th>点击(PC)</th>
-						<th>激活</th>
-						<th>转化率</th>
-						<th class="last">转化率(Mobile)</th>
+						<th width="20%">应用</th>
+						<th width="20%">渠道</th>
+						<th width="10%">点击</th>
+						<th width="10%">点击(Mobile)</th>
+						<th width="10%">点击(PC)</th>
+						<th width="10%">激活</th>
+						<th width="10%">转化率</th>
+						<th width="10%" class="last">转化率(Mobile)</th>
 					</tr>
 				</thead>
 				<tbody>
