@@ -2,6 +2,8 @@ from django.template.loader import get_template
 from django.template import Context
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.http import HttpResponseNotFound
+
 import datetime
 import settings
 import func	
@@ -40,13 +42,30 @@ def dispatch(request):
 	usrId = request.session.get('userId', None)
 	if str in [None, '']:
 		str = 'index'
-	if str in ['apps','channels','channel_detail'] and usrName in [None, '']:
+	if usrName in [None, '']:
+		usrInfo = {'status':''}
+	else:
+		#print 'http://127.0.0.1/user.php?id='+usrId
+		#usrInfo = json.loads(func.post('http://log.umtrack.com/users/get/'+usrId,''))
+		usrInfo = json.loads(func.post('http://127.0.0.1/user.php?id='+usrId,''))
+	#if usrInfo['status'] != 'ok' and str in ['apps','channels','channel_detail'] and usrName != 'chenyukun03@gmail.com':
+	if str in ['apps','channels','channel_detail'] and usrInfo['status'] != 'ok':
+		return HttpResponseRedirect('/not_invited/')
+	elif usrInfo['status'] == 'ok' and str in ['not_invited','register']:
+		return HttpResponseRedirect('/apps/')
+	elif str in ['apps','channels','channel_detail'] and usrName in [None, '']:
 		return HttpResponseRedirect('/')
 	elif str in ['admin'] and usrName != 'chenyukun03@gmail.com':
-		return HttpResponseRedirect('http://www.umeng.com/public/404.html')
-	elif str in ['index','register','login','not_invited','prompt'] and usrName != '':
+		html = get_template('404.html').render(Context({}))
+		return HttpResponseNotFound(html)
+		#return HttpResponseRedirect('http://www.umeng.com/public/404.html')
+	elif str in ['index','login','prompt'] and usrName != '':
 		return HttpResponseRedirect('/apps/')
 	else:
+		if usrInfo['status'] == 'rejected':
+			str = 'rejected';
+		elif usrInfo['status'] == 'pending':
+			str = 'pending';
 		t = get_template(str+'.html')
 		html = t.render(Context({'userName': usrName,'userId': usrId,'page':str}))
 		return HttpResponse(html)	

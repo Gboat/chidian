@@ -499,3 +499,22 @@ function flashChecker(){
 	}
 	return {f:hasFlash,v:flashVersion};
 }
+function urlGet(key){
+	var value = location.search.indexOf(key+"=");
+	if(value != -1){
+		var value = location.search.substr(value+key.length+1);
+		var others = value.indexOf("&");
+		if(others != -1){
+			var value = decodeURI(value.substr(0,others));
+		}else{
+			var value = decodeURI(value);
+		}
+	}else{
+		value = "";
+	}
+	if(value == "undefined"){
+		value = "";	
+	}
+	return value;
+}
+

@@ -40,9 +40,11 @@
 	<div class="umengADsystem_tabel_data">
 		<div class="part_operation">
 			<span class="title">渠道明细</span>
+			<!-- 选择时间start -->
 			<div class="right choose_time">
-				<p><input type="button" class="question" /></p>
-			</div>			
+				<p class="time"><input class="date" id='startDate' type="text" />-<input class="date" id='endDate' type="text" /><input id="changeDate" type="button" value="查询" /><input type="button" class="question" /></p>
+			</div>
+			<!-- 选择时间end -->		
 		</div>
 		<div class="part_table">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -119,7 +121,6 @@
 	</div>
 </div>
 <!-- pop end -->
-<input type="hidden" id="userid" userid=<%=@user.id.to_s%> />
 </body>
 <script src="/javascripts/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="/javascripts/highcharts.js"></script>
@@ -127,16 +128,17 @@
 <script src="/javascripts/ios_channels/pageload.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
-	var cid = location.search.split('&')[0].split('=')[1];
-	var appid = location.search.split('&')[1].split('=')[1];
+	var cid = urlGet('cid');
+	var appid = urlGet('appid');
 	var domOperation = function(){
 		var t = this;
 		this.init = function(){
 			this.loadPage();
 		};
+		var url = (urlGet("startDate") !="")?window.ajaxBaseUrl+'/channel/detail/'+appid+'/'+cid+'/?startDate='+urlGet("startDate")+'&endDate='+urlGet("endDate"):window.ajaxBaseUrl+'/channel/detail/'+appid+'/'+cid+'/?';
 		this.loadPage = function(){
 			var options = {
-				url : window.ajaxBaseUrl+'/channel/detail/'+appid+'/'+cid+'/',
+				url : url,
 				type : 'GET',
 				dataType : 'jsonp',
 				operationDom : $('.part_table table')
@@ -174,6 +176,51 @@ $('#creatNewApp').click(function() {
         }); 
       // setTimeout($.unblockUI, 2000); 
     });
+
+/**日历选择器--开始*/
+function setDefautDate(){
+	var date = new Date();
+    var today = date.getFullYear()+'-'+((date.getMonth()+1<10)?'0'+(date.getMonth()+1):(date.getMonth()+1))+'-'+(date.getDate()<10?'0'+date.getDate():date.getDate());
+    var sevenDayAgo_milliseconds=date.getTime()-1000*60*60*24*7;       
+    var sDA = new Date();       
+    sDA.setTime(sevenDayAgo_milliseconds);       
+    var sevenDayAgo = sDA.getFullYear()+'-'+((sDA.getMonth()+1<10)?'0'+(sDA.getMonth()+1):(sDA.getMonth()+1))+'-'+(sDA.getDate()<10?'0'+sDA.getDate():sDA.getDate());
+	$("#startDate").val(sevenDayAgo);
+	$("#endDate").val(today);	
+}
+
+urlGet('startDate')?$("#startDate").val(urlGet('startDate')):setDefautDate();
+urlGet('endDate')?$("#endDate").val(urlGet('endDate')):'';
+ $("#startDate").datepicker({    //绑定开始日期  
+ 			dateFormat:'yy-mm-dd',
+            changeMonth:true,   //显示下拉列表月份  
+            changeYear:true,    //显示下拉列表年份  
+            firstDay:"1",           //设置开始为1号  
+            onSelect:function(dateText,inst){  
+                //设置结束日期的最小日期  
+                $("endDate").datepicker('option','minDate',new Date(dateText));  
+                $("endDate").datepicker('option','maxDate',new Date(inst.currentYear+","+((inst.currentMonth+2)<10?"0":"")+(inst.currentMonth+2)+","+inst.currentDay));  
+                  
+                }  
+            });  
+              
+        $("#endDate").datepicker({  //设置结束绑定日期  
+        	dateFormat:'yy-mm-dd',
+            changeMonth:true,   //显示下拉列表月份  
+            changeYear:true,    //显示下拉列表年份  
+            firstDay:"1",           //设置开始为1号  
+            onSelect:function(dateText,inst){  
+                //设置开始日期的最大日期  
+                $('#startDate').datepicker('option','maxDate',new Date(dateText));  
+                $('#startDate').datepicker('option','minDate',new Date(inst.currentYear+"-"+(inst.currentMonth<10?"0":"")+inst.currentMonth+"-"+inst.currentDay));  
+                }  
+            });  
+
+/**日历选择器--结束*/
+$("#changeDate").click(function(){
+	if(window.startDate != $("#startDate").val() || window.endDate != $("#endDate").val())
+	location.href="/channel_detail/?cid="+urlGet("cid")+"&appid="+urlGet("appid")+'&startDate='+$("#startDate").val()+'&endDate='+$("#endDate").val();
+});
 $('.question').click(function() { 
         $.blockUI({ 
             message:  $('.umengADsystem_panel_que'), 
