@@ -1,6 +1,15 @@
 {%include 'header.html'%}
 <!-- 正文 start -->
 <div class="umengADsystem_container">
+	<!-- 面包屑start -->
+	<div class="umengADsystem_breadcrumbs">
+		<ul>
+			<li class="first_child finish"><span class="caption">第一步：创建应用</span><span class="second">监控从创建要监控的应用开始</span></li>
+			<li class="current"><span class="caption">第二步：创建渠道</span><span class="second">应用需要嵌入代码、创建推广渠道、发布渠道链接、查看监控数据</span></li>
+			<li class="last_child"><span class="caption">第三步：渠道报表</span><span class="second">查看渠道监控数据</span></li>
+		</ul>
+	</div>
+	<!-- 面包屑end -->
 	<!-- 主标题start -->
 	<div class="umengADsystem_title_primary"><a href="/apps">&lt;&lt;返回应用列表</a><!--&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="issue_box_href">进入Issue Box&gt;&gt;</a>--> </div>
 	<!-- 主标题end -->
@@ -130,7 +139,7 @@
 		<div class="part_operation">
 			<!-- 选择时间start -->
 			<div class="right choose_time">
-				<p class="time"><input class="date" id='startDate' type="text" />-<input class="date" id='endDate' type="text" /><input id="changeDate" type="button" value="查询" /><input type="button" class="question" /></p>
+				<p class="time"><input class="date" id='startDate' type="text" />-<input class="date" id='endDate' type="text" /><input id="changeDate" type="button" value="查询" /><input type="button" class="question ques_pop" /></p>
 			</div>
 			<!-- 选择时间end -->
 			<dl>
@@ -149,7 +158,7 @@
 					<th width='11%'>点击(总数)</th>
 					<th width='11%'>激活</th>
 					<th width='11%'>转化率</th>
-					<th width="20%" colspan="2">渠道URL</th>
+					<th width="20%" colspan="2">渠道URL<input type="button" class="question" style="margin-top:-2px" title="此链接需要发布在要推广的渠道上，以便监控渠道带来的后续点击和激活量" /></th>
 					<th align='center' width="4%" class="last">删除</th>
 				</tr>
 				</thead>
@@ -181,6 +190,11 @@
 				<th width="100"><span class="umengADsystem_font_blue">* </span>渠道名称：</th>
 				<td><input type="text" style="width:230px;" name="channelname" class="input_text"></td>
 			</tr>
+			<tr class="third">
+				<th width="100"></th>
+				<td style="color:#666;">渠道名是为推广渠道建立的名称标识，区分渠道不影响统计数据。</td>
+			</tr>
+			
 			<tr class="second">
 				<td></td>
 				<td><span class="tips_week_warning">渠道名称为空或已存在此渠道！</span></td>
@@ -199,7 +213,7 @@
 		<p><span>点击(总数)</span>来自所有设备（包含PC）的点击总量</p>
 		<p><span>激活</span>激活iOS设备的总量</p>
 		<p><span>转化率</span>激活量/点击（移动设备）</p>
-		<p><span>渠道url</span>渠道推广链接</p>
+		<p><span>渠道url</span>此链接需要发布在要推广的渠道上，以便监控渠道带来的后续点击和激活量</p>
 	</div>
 </div>
 <!-- pop end -->
@@ -343,7 +357,7 @@ $('#creatNewApp').click(function() {
         }); 
       // setTimeout($.unblockUI, 2000); 
     });
-$('.question').click(function() { 
+$('.ques_pop').click(function() { 
         $.blockUI({ 
             message:  $('.umengADsystem_panel_que'), 
             css: { 

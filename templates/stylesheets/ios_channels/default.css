@@ -1074,7 +1074,7 @@ marquee p {
 .umengADsystem_breadcrumbs {
 	width:998px;
 	margin-bottom:20px;
-	height:43px;
+	height:50px;
 	border:1px solid #ccc;
 	box-shadow:0 2px 2px #ccc;
 	border-radius:5px;
@@ -1085,7 +1085,7 @@ marquee p {
 	float:right;
 	padding:0 5px;
 	border-left:1px solid #ccc;
-	height:43px;
+	height:50px;
 }
 .umengADsystem_breadcrumbs .part_right h6 {
 	height:20px;
@@ -1097,36 +1097,60 @@ marquee p {
 }
 .umengADsystem_breadcrumbs span.title {
 	width:75px;
-	height:42px;
-	line-height:42px;
+	height:50px;
+	line-height:50px;
 	float:left;
 	text-indent:10px;
 	color:#666;
 	border-top:1px solid #fff;
 	border-left:1px solid #fff;
-	background:#F1F1F1 url(../../images/ios_channels/umengADsystem_breadcrumbs.png) right 0 no-repeat;
+	background:#F1F1F1 url(../../images/umengADsystem_breadcrumbs.png) right 0 no-repeat;
 	border-radius:5px;
 	-moz-border-radius:5px;
 	text-shadow:1px 1px #fff;
 }
 .umengADsystem_breadcrumbs ul {
+	width:100%;
 	float:left;
 	display:inline;
 }
 .umengADsystem_breadcrumbs li {
+	width:40%;
 	float:left;
-	height:38px;
-	background:url(../../images/ios_channels/umengADsystem_breadcrumbs.png) right -50px no-repeat;
-	padding:5px 20px 0 10px;
+	height:43px;
+	background:url(../../images/umengADsystem_breadcrumbs.png) right -50px no-repeat #FFF;
+	padding:7px 0 0 0;
+	text-indent:25px;
 }
-.umengADsystem_breadcrumbs li a {
-	display:block;
+.umengADsystem_breadcrumbs li.first_child{
+	width:30%;
+	border-radius:5px 0 0 5px;
+}
+.umengADsystem_breadcrumbs li.last_child{
+	width:30%;
+	border-radius:0 5px 5px 0;
+	background-image:none!important;
+}
+.umengADsystem_breadcrumbs li.current{
+	background:#005377 url(../../images/umengADsystem_breadcrumbs.png) right 0 no-repeat;
+}
+.umengADsystem_breadcrumbs li.finish{
+	background:url(../../images/umengADsystem_breadcrumbs.png) right -100px no-repeat #FFF;
+}
+.umengADsystem_breadcrumbs li.current span{
+	color:#fff;
+}
+.umengADsystem_breadcrumbs li.current span.second{
+	color:#ccc;
 }
 .umengADsystem_breadcrumbs li span {
 	display:block;
 }
-.umengADsystem_breadcrumbs li span.second {
-	line-height:34px;
+.umengADsystem_breadcrumbs li span.caption{
+	font-size:14px;
+}
+.umengADsystem_breadcrumbs li span.second{
+	color:#666;
 }
 /* breadcrumbs end */
 /* flow start */

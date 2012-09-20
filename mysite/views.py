@@ -36,6 +36,7 @@ def logout(request):
 	return HttpResponseRedirect('/')
 	
 def dispatch(request):
+	adminAccount = 'chenyukun03@gmail.com'
 	str = request.path
 	str = str.replace('/','')
 	usrName = request.session.get('userName', '')
@@ -45,26 +46,27 @@ def dispatch(request):
 	if usrName in [None, '']:
 		usrInfo = {'status':''}
 	else:
-		#print 'http://127.0.0.1/user.php?id='+usrId
-		#usrInfo = json.loads(func.post('http://log.umtrack.com/users/get/'+usrId,''))
-		usrInfo = json.loads(func.post('http://127.0.0.1/user.php?id='+usrId,''))
-	#if usrInfo['status'] != 'ok' and str in ['apps','channels','channel_detail'] and usrName != 'chenyukun03@gmail.com':
-	if str in ['apps','channels','channel_detail'] and usrInfo['status'] != 'ok':
+		usrInfo = json.loads(func.post('http://log.umtrack.com/users/get/'+usrName+'/',''))
+		#usrInfo = json.loads(func.post('http://127.0.0.1/user.php?id='+usrId,''))
+		usrInfo  = usrInfo['status']
+	print 'usrName:', usrName
+	print 'adminAccount:', adminAccount
+	if str in ['apps','channels','channel_detail'] and usrInfo['status'] != 'ok' and usrName != adminAccount:
 		return HttpResponseRedirect('/not_invited/')
 	elif usrInfo['status'] == 'ok' and str in ['not_invited','register']:
 		return HttpResponseRedirect('/apps/')
 	elif str in ['apps','channels','channel_detail'] and usrName in [None, '']:
 		return HttpResponseRedirect('/')
-	elif str in ['admin'] and usrName != 'chenyukun03@gmail.com':
+	elif str in ['admin'] and usrName != adminAccount:
 		html = get_template('404.html').render(Context({}))
 		return HttpResponseNotFound(html)
 		#return HttpResponseRedirect('http://www.umeng.com/public/404.html')
 	elif str in ['index','login','prompt'] and usrName != '':
 		return HttpResponseRedirect('/apps/')
 	else:
-		if usrInfo['status'] == 'rejected':
+		if usrInfo['status'] == 'rejected' and usrName != adminAccount:
 			str = 'rejected';
-		elif usrInfo['status'] == 'pending':
+		elif usrInfo['status'] == 'pending' and usrName != adminAccount:
 			str = 'pending';
 		t = get_template(str+'.html')
 		html = t.render(Context({'userName': usrName,'userId': usrId,'page':str}))

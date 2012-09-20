@@ -432,16 +432,17 @@ marquee p {
 	margin:0 auto;
 }
 .inuse .list li{
-	width:138px;
+	width:100px;
 	height:174px;
 	float:left;
 	display:inline;
 	text-align:center;
+	margin:0 11px 0 10px;
 }
 .inuse .list li a{
-	width:138px;
+	width:100px;
 	display:block;
-	height:134px;
+	height:100px;
 	padding-top:20px;
 	text-align:center;
 	color:#333;
@@ -450,6 +451,8 @@ marquee p {
 	display:block;
 	margin:0 auto;
 	margin-bottom:5px;
+	width:100px;
+	height:100px;
 }
 /* prompt end */
 .register{
