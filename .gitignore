@@ -1,0 +1,10 @@
+
+*~
+*#
+.#*
+lib/._.DS_Store
+lib/umeng/._.DS_Store
+log
+tmp/
+._.DS_Store
+*.pyc
