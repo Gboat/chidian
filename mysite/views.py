@@ -11,8 +11,8 @@ import hashlib
 import json
 
 def users(request):
-	userName = request.POST['userName']
-	userPwd = request.POST['userPwd']
+	userName = request.POST.get('userName', '')
+	userPwd = request.POST.get('userPwd', '')
 	auth = hashlib.md5(userName+userPwd+'_umtrack_api_')
 	auth.digest()
 	if userName and userPwd:
