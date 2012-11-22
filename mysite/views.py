@@ -11,6 +11,7 @@ import hashlib
 import json
 
 def users(request):
+	print 'request: ',request
 	userName = request.POST['userName']
 	userPwd = request.POST['userPwd']
 	auth = hashlib.md5(userName+userPwd+'_umtrack_api_')

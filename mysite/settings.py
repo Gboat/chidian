@@ -107,7 +107,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	"C:/umeng/umtrack_new/templates",
+	"templates",
 )
 
 INSTALLED_APPS = (
@@ -157,7 +157,7 @@ SESSION_ENGINE=(
 'django.contrib.sessions.backends.signed_cookies'	
 )
 SESSION_FILE_PATH=(
-'C:/web/session'
+'~/code/umtrack_new/session'
 )
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True 
 SESSION_SAVE_EVERY_REQUEST = True
