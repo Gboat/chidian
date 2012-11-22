@@ -460,7 +460,8 @@ function delApp(appkey,name){
 
 }
 function updateApp(appkey,name,url){
-        $.blockUI({ 
+ alert_msg("该功能暂不可用");
+ /*       $.blockUI({ 
             message:  $('.umengADsystem_update'), 
             css: { 
 				width:'450',
@@ -513,7 +514,7 @@ function updateApp(appkey,name,url){
 
 			});
         });
-
+*/
 }
 function alert_msg(msg){
 	$.blockUI({ 
