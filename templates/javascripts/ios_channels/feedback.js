@@ -1,4 +1,4 @@
-window.ajaxUrl = "http://211.151.139.230:8000";
+window.ajaxUrl = "http://log.umtrack.com";
 $(function(){
 	gettag();
 	getchannel();

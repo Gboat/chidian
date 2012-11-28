@@ -33,7 +33,7 @@
 	
 	<!-- 集成代码 start -->
 	<div class="umengADsystem_combo">
-		<h5><a title="点此展开/收起安装说明" href="javascript:void(0)" class="down">将此段代码复制到该方法中：
+		<h5><a title="点此展开/收起安装说明" href="javascript:void(0)" class="down">将此段代码复制到AppDelegate.m文件的该方法中：
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</a></h5>
 		<div class="main_content" style="display:block;">
 			<div class="umengADsystem_panel_code">
@@ -52,22 +52,24 @@
 
 			</div>
 		</div>
-		<li class="umengADsystem_align_right" style="margin:10px 30px 0 0;"><a href="javascript:void(0);" class="umengADsystem_font_gray" id="getMacMethod">获取mac地址代码说明</a>				
+		<li class="umengADsystem_align_right" style="margin:10px 30px 0 0;"><a href="javascript:void(0);" class="umengADsystem_font_gray" id="getMacMethod">仅获取mac地址代码说明</a> <span class="umengADsystem_font_gray">|</span> <a href="javascript:void(0);" class="umengADsystem_font_gray" id="getUDIDMacMethod">获取mac地址及UDID代码说明</a>				
 </li>
 
 		<!--<div class="main_content" style="display:block;position:relative;height:0px; overflow:hidden;padding:0;">-->
-		<div class="main_content" style="display:block;position:relative;height:0px; overflow:hidden;padding:0;">
+		<div class="main_content" style="display:block;position:relative;height:0px; overflow:hidden;padding:0;" id="macContent">
 			<div class="umengADsystem_panel_code">
 				<div class="dp-c">
 					<div>
+					<p style="padding:10px 30px;font-weight:bold;">在AppDelegate.m文件中的<br />
+							-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+						方法中添加下面代码</p>
 					<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(209,47,27)"><span style="color:#000000">&nbsp; &nbsp;&nbsp;</span><span style="color:#703daa">NSString</span><span style="color:#000000"> * appKey = </span>@"<span class="appkey">YourUmengAppTrackingSystemAppKey</span>"<span style="color:#000000">;</span></p>
 					<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(61,29,129)"><span style="color:#000000">&nbsp; &nbsp; </span><span style="color:#703daa">NSString</span><span style="color:#000000"> * deviceName = [[[</span><span style="color:#703daa">UIDevice</span><span style="color:#000000"> </span>currentDevice<span style="color:#000000">] </span>name<span style="color:#000000">] </span>stringByAddingPercentEscapesUsingEncoding<span style="color:#000000">:</span>NSUTF8StringEncoding<span style="color:#000000">];</span></p>
-					<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(61,29,129)"><span style="color:#000000">&nbsp; &nbsp; </span><span style="color:#703daa">NSString</span><span style="color:#000000"> * udid = [[</span><span style="color:#703daa">UIDevice</span><span style="color:#000000"> </span>currentDevice<span style="color:#000000">] </span>uniqueIdentifier<span style="color:#000000">];</span></p>
 					<div><span style="font-family:Menlo;font-size:11px">&nbsp; &nbsp;&nbsp;</span><span style="font-family:Menlo;font-size:11px;color:rgb(112,61,170)">NSString</span><span style="font-family:Menlo;font-size:11px">&nbsp;* mac = [</span><span style="font-family:Menlo;font-size:11px;color:rgb(187,44,162)">self</span><span style="font-family:Menlo;font-size:11px">&nbsp;</span><span style="font-family:Menlo;font-size:11px;color:rgb(49,89,93)">macString</span><span style="font-family:Menlo;font-size:11px">];</span></div>
-					<div><span style="font-family:Menlo;font-size:11px;color:rgb(112,61,170)">&nbsp; &nbsp; NSString</span><span style="font-family:Menlo;font-size:11px">&nbsp;* urlString = [</span><span style="font-family:Menlo;font-size:11px;color:rgb(112,61,170)">NSString</span><span style="font-family:Menlo;font-size:11px">&nbsp;</span><span style="font-family:Menlo;font-size:11px;color:rgb(61,29,129)">stringWithFormat</span><span style="font-family:Menlo;font-size:11px">:</span><span style="color:rgb(209,47,27);font-family:Menlo;font-size:11px">@"http://log.umtrack.com/ping/%@/?devicename=%@&amp;udid=%@&amp;mac=%@"</span><span style="font-family:Menlo;font-size:11px">, appKey,deviceName,udid,mac];</span></div>
+					<div><span style="font-family:Menlo;font-size:11px;color:rgb(112,61,170)">&nbsp; &nbsp; NSString</span><span style="font-family:Menlo;font-size:11px">&nbsp;* urlString = [</span><span style="font-family:Menlo;font-size:11px;color:rgb(112,61,170)">NSString</span><span style="font-family:Menlo;font-size:11px">&nbsp;</span><span style="font-family:Menlo;font-size:11px;color:rgb(61,29,129)">stringWithFormat</span><span style="font-family:Menlo;font-size:11px">:</span><span style="color:rgb(209,47,27);font-family:Menlo;font-size:11px">@"http://log.umtrack.com/ping/%@/?devicename=%@&amp;mac=%@"</span><span style="font-family:Menlo;font-size:11px">, appKey,deviceName,mac];</span></div>
 					<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(61,29,129)"><span style="color:#000000">&nbsp; &nbsp; [</span><span style="color:#703daa">NSURLConnection</span><span style="color:#000000"> </span>connectionWithRequest<span style="color:#000000">:[</span><span style="color:#703daa">NSURLRequest</span><span style="color:#000000"> </span>requestWithURL<span style="color:#000000">: [</span><span style="color:#703daa">NSURL</span><span style="color:#000000"> </span>URLWithString<span style="color:#000000">:urlString]] </span>delegate<span style="color:#000000">:</span><span style="color:#bb2ca2">nil</span><span style="color:#000000">];</span></p>
 					</div>
-					<div style="padding:10px 30px;font-weight:bold;">如果使用mac地址作为跟踪设备的标示的话,请添加以下内容</div>
+					<div style="padding:10px 30px;font-weight:bold;">并在AppDelegate.m文件中添加一个macString方法：</div>
 					<div style="padding-left:30px"><p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(209,47,27)"><span style="color:#78492a">#include </span>&lt;sys/socket.h&gt;</p>
 					<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(209,47,27)"><span style="color:#78492a">#include </span>&lt;sys/sysctl.h&gt;</p>
 					<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(209,47,27)"><span style="color:#78492a">#include </span>&lt;net/if.h&gt;</p>
@@ -117,7 +119,7 @@
 						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; *ptr, *(ptr+<span style="color:#272ad8">1</span>), *(ptr+<span style="color:#272ad8">2</span>), *(ptr+<span style="color:#272ad8">3</span>), *(ptr+<span style="color:#272ad8">4</span>), *(ptr+<span style="color:#272ad8">5</span>)];</p>
 						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#3d1d81">free</span>(buf);</p>
 						<p style="margin:0px;font-size:11px;font-family:Menlo;min-height:13px">&nbsp;&nbsp; &nbsp;</p>
-						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#bb2ca2">return</span>macString;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#bb2ca2">return&nbsp;</span>macString;</p>
 						<p style="margin:0px;font-size:11px;font-family:Menlo">}</p>
 					</div>
 				</div>	
@@ -125,7 +127,79 @@
 					<p class="textToCopy" style="display:none" id="theCode2"></p>
 			</div>
 		</div>
-	
+		<div class="main_content" style="display:block;position:relative;height:0px; overflow:hidden;padding:0;" id="udidmacContent">
+			<div class="umengADsystem_panel_code">
+				<div class="dp-c">
+					<div>
+						<p style="padding:10px 30px;font-weight:bold;">在AppDelegate.m文件中的<br />
+							-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+						方法中添加下面代码</p>
+					<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(209,47,27)"><span style="color:#000000">&nbsp; &nbsp;&nbsp;</span><span style="color:#703daa">NSString</span><span style="color:#000000"> * appKey = </span>@"<span class="appkey">YourUmengAppTrackingSystemAppKey</span>"<span style="color:#000000">;</span></p>
+					<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(61,29,129)"><span style="color:#000000">&nbsp; &nbsp; </span><span style="color:#703daa">NSString</span><span style="color:#000000"> * deviceName = [[[</span><span style="color:#703daa">UIDevice</span><span style="color:#000000"> </span>currentDevice<span style="color:#000000">] </span>name<span style="color:#000000">] </span>stringByAddingPercentEscapesUsingEncoding<span style="color:#000000">:</span>NSUTF8StringEncoding<span style="color:#000000">];</span></p>
+					<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(61,29,129)"><span style="color:#000000">&nbsp; &nbsp; </span><span style="color:#703daa">NSString</span><span style="color:#000000"> * udid = [[</span><span style="color:#703daa">UIDevice</span><span style="color:#000000"> </span>currentDevice<span style="color:#000000">] </span>uniqueIdentifier<span style="color:#000000">];</span></p>
+					<div><span style="font-family:Menlo;font-size:11px">&nbsp; &nbsp;&nbsp;</span><span style="font-family:Menlo;font-size:11px;color:rgb(112,61,170)">NSString</span><span style="font-family:Menlo;font-size:11px">&nbsp;* mac = [</span><span style="font-family:Menlo;font-size:11px;color:rgb(187,44,162)">self</span><span style="font-family:Menlo;font-size:11px">&nbsp;</span><span style="font-family:Menlo;font-size:11px;color:rgb(49,89,93)">macString</span><span style="font-family:Menlo;font-size:11px">];</span></div>
+					<div><span style="font-family:Menlo;font-size:11px;color:rgb(112,61,170)">&nbsp; &nbsp; NSString</span><span style="font-family:Menlo;font-size:11px">&nbsp;* urlString = [</span><span style="font-family:Menlo;font-size:11px;color:rgb(112,61,170)">NSString</span><span style="font-family:Menlo;font-size:11px">&nbsp;</span><span style="font-family:Menlo;font-size:11px;color:rgb(61,29,129)">stringWithFormat</span><span style="font-family:Menlo;font-size:11px">:</span><span style="color:rgb(209,47,27);font-family:Menlo;font-size:11px">@"http://log.umtrack.com/ping/%@/?devicename=%@&amp;udid=%@&amp;mac=%@"</span><span style="font-family:Menlo;font-size:11px">, appKey,deviceName,udid,mac];</span></div>
+					<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(61,29,129)"><span style="color:#000000">&nbsp; &nbsp; [</span><span style="color:#703daa">NSURLConnection</span><span style="color:#000000"> </span>connectionWithRequest<span style="color:#000000">:[</span><span style="color:#703daa">NSURLRequest</span><span style="color:#000000"> </span>requestWithURL<span style="color:#000000">: [</span><span style="color:#703daa">NSURL</span><span style="color:#000000"> </span>URLWithString<span style="color:#000000">:urlString]] </span>delegate<span style="color:#000000">:</span><span style="color:#bb2ca2">nil</span><span style="color:#000000">];</span></p>
+					</div>
+					<div style="padding:10px 30px;font-weight:bold;">并在AppDelegate.m文件中添加一个macString方法：</div>
+					<div style="padding-left:30px"><p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(209,47,27)"><span style="color:#78492a">#include </span>&lt;sys/socket.h&gt;</p>
+					<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(209,47,27)"><span style="color:#78492a">#include </span>&lt;sys/sysctl.h&gt;</p>
+					<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(209,47,27)"><span style="color:#78492a">#include </span>&lt;net/if.h&gt;</p>
+					<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(209,47,27)"><span style="color:#78492a">#include </span>&lt;net/if_dl.h&gt;</p></div>
+					<div style="padding-left:30px">
+					<p style="margin:0px;font-size:11px;font-family:Menlo">
+						- (<span style="color:#703daa">NSString</span> * )macString{</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo;min-height:13px"><br/></p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#bb2ca2">int</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; mib[<span style="color:#272ad8">6</span>];</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#703daa">size_t</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; len;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#bb2ca2">char</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; *buf;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#bb2ca2">unsigned</span> <span style="color:#bb2ca2">char</span> &nbsp; &nbsp; &nbsp; *ptr;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#bb2ca2">struct</span> <span style="color:#703daa">if_msghdr</span>&nbsp; &nbsp; *ifm;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#bb2ca2">struct</span> <span style="color:#703daa">sockaddr_dl</span>&nbsp; *sdl;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo;min-height:13px">&nbsp;&nbsp; &nbsp;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; mib[<span style="color:#272ad8">0</span>] = <span style="color:#78492a">CTL_NET</span>;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; mib[<span style="color:#272ad8">1</span>] = <span style="color:#78492a">AF_ROUTE</span>;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; mib[<span style="color:#272ad8">2</span>] = <span style="color:#272ad8">0</span>;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; mib[<span style="color:#272ad8">3</span>] = <span style="color:#78492a">AF_LINK</span>;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; mib[<span style="color:#272ad8">4</span>] = <span style="color:#78492a">NET_RT_IFLIST</span>;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo;min-height:13px">&nbsp;&nbsp; &nbsp;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#bb2ca2">if</span> ((mib[<span style="color:#272ad8">5</span>] = <span style="color:#3d1d81">if_nametoindex</span>(<span style="color:#d12f1b">"en0"</span>)) == <span style="color:#272ad8">0</span>) {</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(209,47,27)"><span style="color:#000000">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color:#3d1d81">printf</span><span style="color:#000000">(</span>"Error: if_nametoindex error\n"<span style="color:#000000">);</span></p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#bb2ca2">return</span> <span style="color:#bb2ca2">NULL</span>;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; }</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo;min-height:13px">&nbsp;&nbsp; &nbsp;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#bb2ca2">if</span> (<span style="color:#3d1d81">sysctl</span>(mib, <span style="color:#272ad8">6</span>, <span style="color:#bb2ca2">NULL</span>, &amp;len, <span style="color:#bb2ca2">NULL</span>, <span style="color:#272ad8">0</span>) &lt; <span style="color:#272ad8">0</span>) {</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(209,47,27)"><span style="color:#000000">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color:#3d1d81">printf</span><span style="color:#000000">(</span>"Error: sysctl, take 1\n"<span style="color:#000000">);</span></p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#bb2ca2">return</span> <span style="color:#bb2ca2">NULL</span>;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; }</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo;min-height:13px">&nbsp;&nbsp; &nbsp;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#bb2ca2">if</span> ((buf = <span style="color:#3d1d81">malloc</span>(len)) == <span style="color:#bb2ca2">NULL</span>) {</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(209,47,27)"><span style="color:#000000">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color:#3d1d81">printf</span><span style="color:#000000">(</span>"Could not allocate memory. error!\n"<span style="color:#000000">);</span></p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#bb2ca2">return</span> <span style="color:#bb2ca2">NULL</span>;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; }</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo;min-height:13px">&nbsp;&nbsp; &nbsp;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#bb2ca2">if</span> (<span style="color:#3d1d81">sysctl</span>(mib, <span style="color:#272ad8">6</span>, buf, &amp;len, <span style="color:#bb2ca2">NULL</span>, <span style="color:#272ad8">0</span>) &lt; <span style="color:#272ad8">0</span>) {</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(209,47,27)"><span style="color:#000000">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color:#3d1d81">printf</span><span style="color:#000000">(</span>"Error: sysctl, take 2"<span style="color:#000000">);</span></p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#3d1d81">free</span>(buf);</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color:#bb2ca2">return</span> <span style="color:#bb2ca2">NULL</span>;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; }</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo;min-height:13px">&nbsp;&nbsp; &nbsp;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; ifm = (<span style="color:#bb2ca2">struct</span> <span style="color:#703daa">if_msghdr</span> *)buf;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; sdl = (<span style="color:#bb2ca2">struct</span> <span style="color:#703daa">sockaddr_dl</span> *)(ifm + <span style="color:#272ad8">1</span>);</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; ptr = (<span style="color:#bb2ca2">unsigned</span> <span style="color:#bb2ca2">char</span> *)<span style="color:#78492a">LLADDR</span>(sdl);</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo;color:rgb(209,47,27)"><span style="color:#000000">&nbsp; &nbsp; </span><span style="color:#703daa">NSString</span><span style="color:#000000"> *macString = [</span><span style="color:#703daa">NSString</span><span style="color:#000000"> </span><span style="color:#3d1d81">stringWithFormat</span><span style="color:#000000">:</span>@"%02X:%02X:%02X:%02X:%02X:%02X"<span style="color:#000000">,</span></p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; *ptr, *(ptr+<span style="color:#272ad8">1</span>), *(ptr+<span style="color:#272ad8">2</span>), *(ptr+<span style="color:#272ad8">3</span>), *(ptr+<span style="color:#272ad8">4</span>), *(ptr+<span style="color:#272ad8">5</span>)];</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#3d1d81">free</span>(buf);</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo;min-height:13px">&nbsp;&nbsp; &nbsp;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">&nbsp; &nbsp; <span style="color:#bb2ca2">return&nbsp;</span>macString;</p>
+						<p style="margin:0px;font-size:11px;font-family:Menlo">}</p>
+					</div>
+				</div>	
+					<a class="copyText copyTextBtn" href="javascript:void(0);">复制代码</a>
+					<p class="textToCopy" style="display:none" id="theCode3"></p>
+			</div>
+		</div>
+		
 
 
 	</div>
@@ -139,7 +213,7 @@
 		<div class="part_operation">
 			<!-- 选择时间start -->
 			<div class="right choose_time">
-				<p class="time"><input class="date" id='startDate' type="text" />-<input class="date" id='endDate' type="text" /><input id="changeDate" type="button" value="查询" /><input type="button" class="question ques_pop" /></p>
+				<p class="time"><input class="date" id='startDate' type="text" />-<input class="date" id='endDate' type="text" /><input id="changeDate" type="button" value="查询" /><input type="button" class="question" /></p>
 			</div>
 			<!-- 选择时间end -->
 			<dl>
@@ -357,7 +431,7 @@ $('#creatNewApp').click(function() {
         }); 
       // setTimeout($.unblockUI, 2000); 
     });
-$('.ques_pop').click(function() { 
+$('.question').click(function() { 
         $.blockUI({ 
             message:  $('.umengADsystem_panel_que'), 
             css: { 
@@ -397,12 +471,22 @@ $('.umengADsystem_combo h5').click(function(){
 	$(this).next('.main_content').slideToggle();
 })
 $('#getMacMethod').click(function(){
-	if($(this).parent().next().height() == 0){
-		$(this).parent().next().attr("style","display:block; position:relative;");
+	$('#udidmacContent').slideUp();
+	if($('#macContent').height() == 0){
+		$('#macContent').attr("style","display:block; position:relative;");
 	}else{
-		$(this).parent().next().slideToggle();				
+		$('#macContent').slideToggle();				
+	}		
+	copyText($("#macContent .copyText"));  
+})
+$('#getUDIDMacMethod').click(function(){
+	$('#macContent').slideUp();
+	if($('#udidmacContent').height() == 0){
+		$('#udidmacContent').attr("style","display:block; position:relative;");
+	}else{
+		$('#udidmacContent').slideToggle();				
 	}
-			  
+	copyText($("#udidmacContent .copyText"));  
 })
 //展开、收起安装说明end
 
@@ -425,7 +509,8 @@ setDefautDate();
             firstDay:"1",           //设置开始为1号  
             onSelect:function(dateText,inst){  
                 //设置结束日期的最小日期  
-                $("endDate").datepicker('option','minDate',new Date(dateText.replace('-',',')));  
+                $("endDate").datepicker('option','minDate',new Date(dateText));  
+                $("endDate").datepicker('option','maxDate',new Date(inst.currentYear+","+((inst.currentMonth+2)<10?"0":"")+(inst.currentMonth+2)+","+inst.currentDay));  
                   
                 }  
             });  
@@ -437,7 +522,8 @@ setDefautDate();
             firstDay:"1",           //设置开始为1号  
             onSelect:function(dateText,inst){  
                 //设置开始日期的最大日期  
-                $('#startDate').datepicker('option','maxDate',new Date(dateText.replace('-',',')));  
+                $('#startDate').datepicker('option','maxDate',new Date(dateText));  
+                $('#startDate').datepicker('option','minDate',new Date(inst.currentYear+"-"+(inst.currentMonth<10?"0":"")+inst.currentMonth+"-"+inst.currentDay));  
                 }  
             });  
 

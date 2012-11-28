@@ -1002,7 +1002,7 @@ marquee p {
 }
 /* panel_preview end */
 /* panel_pop start */
-.umengADsystem_panel_pop,.umengADsystem_panel_que,.umengADsystem_panel_clip,.umengADsystem_del {
+.umengADsystem_panel_pop,.umengADsystem_panel_que,.umengADsystem_panel_clip,.umengADsystem_del ,.umengADsystem_update {
 	width:450px;
 	background:#eee;
 	border:1px solid #ccc;
@@ -1010,26 +1010,26 @@ marquee p {
 	box-shadow:0 2px 5px #999;
 	border-radius:5px;
 }
-.umengADsystem_panel_pop h6,.umengADsystem_panel_que h6,.umengADsystem_del h6 {
+.umengADsystem_panel_pop h6,.umengADsystem_panel_que h6,.umengADsystem_del h6 ,.umengADsystem_update h6 {
 	height:20px;
 	line-height:20px;
 }
-.umengADsystem_panel_pop h6 .btn_close,.umengADsystem_panel_que h6 .btn_close,.umengADsystem_panel_clip h6 .btn_close,.umengADsystem_del h6 .btn_close {
+.umengADsystem_panel_pop h6 .btn_close,.umengADsystem_panel_que h6 .btn_close,.umengADsystem_panel_clip h6 .btn_close,.umengADsystem_del h6 .btn_close,.umengADsystem_update h6 .btn_close {
 	width:16px;
 	height:16px;
 	float:right;
 	background:url(../../images/ios_channels/umengADsystem_icon.gif) no-repeat 0 0;
 }
-.umengADsystem_panel_pop h6 .btn_close:hover,.umengADsystem_panel_que h6 .btn_close:hover,.umengADsystem_panel_clip h6 .btn_close:hover,.umengADsystem_del h6 .btn_close:hover {
+.umengADsystem_panel_pop h6 .btn_close:hover,.umengADsystem_update h6 .btn_close:hover,.umengADsystem_panel_que h6 .btn_close:hover,.umengADsystem_panel_clip h6 .btn_close:hover,.umengADsystem_del h6 .btn_close:hover {
 	background-position:0 -16px;
 }
-.umengADsystem_panel_pop .main,.umengADsystem_panel_que .main,.umengADsystem_del .main {
+.umengADsystem_panel_pop .main,.umengADsystem_panel_que .main,.umengADsystem_del .main ,.umengADsystem_update .main {
 	background:#fff;
 	border:1px solid #999;
 	height:354px;
 	overflow:auto;
 }
-.umengADsystem_panel_pop .main2,.umengADsystem_panel_que .main2,.umengADsystem_del .main2 {
+.umengADsystem_panel_pop .main2,.umengADsystem_panel_que .main2,.umengADsystem_del .main2,.umengADsystem_update .main2 {
 	background:#fff;
 	border:1px solid #999;
 	padding:10px;
@@ -1044,27 +1044,27 @@ marquee p {
 	width:430px;
 	height:100px;
 }
-.umengADsystem_panel_pop li,.umengADsystem_panel_que li,.umengADsystem_del li {
+.umengADsystem_panel_pop li,.umengADsystem_update li,.umengADsystem_panel_que li,.umengADsystem_del li {
 	height:48px;
 	padding:5px;
 	border-bottom:1px solid #ccc;
 	background:url(../../images/ios_channels/breadcrumbs_panel_overview.gif) 0 0 repeat-x;
 }
-.umengADsystem_panel_pop li a.part_pic {
+.umengADsystem_panel_pop li a.part_pic,.umengADsystem_update li a.part_pic {
 	width:48px;
 	height:48px;
 	float:left;
 	display:inline;
 	margin-right:10px;
 }
-.umengADsystem_panel_pop li img {
+.umengADsystem_panel_pop li img,.umengADsystem_update li img {
 	height:48px;
 	width:48px;
 }
-.umengADsystem_panel_pop li h6,.umengADsystem_panel_que li h6,.umengADsystem_del li h6 {
+.umengADsystem_panel_pop li h6,.umengADsystem_update li h6,.umengADsystem_panel_que li h6,.umengADsystem_del li h6 {
 	line-height:25px;
 }
-.umengADsystem_panel_pop li p,.umengADsystem_panel_que p,.umengADsystem_del li p {
+.umengADsystem_panel_pop li p,.umengADsystem_update li p,.umengADsystem_panel_que p,.umengADsystem_del li p {
 	line-height:20px;
 	color:#666;
 }
@@ -1074,7 +1074,7 @@ marquee p {
 .umengADsystem_breadcrumbs {
 	width:998px;
 	margin-bottom:20px;
-	height:50px;
+	height:43px;
 	border:1px solid #ccc;
 	box-shadow:0 2px 2px #ccc;
 	border-radius:5px;
@@ -1085,7 +1085,7 @@ marquee p {
 	float:right;
 	padding:0 5px;
 	border-left:1px solid #ccc;
-	height:50px;
+	height:43px;
 }
 .umengADsystem_breadcrumbs .part_right h6 {
 	height:20px;
@@ -1097,8 +1097,8 @@ marquee p {
 }
 .umengADsystem_breadcrumbs span.title {
 	width:75px;
-	height:50px;
-	line-height:50px;
+	height:42px;
+	line-height:42px;
 	float:left;
 	text-indent:10px;
 	color:#666;

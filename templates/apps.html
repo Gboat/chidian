@@ -28,6 +28,7 @@
 					<tr>
 						<th>应用名称</th>
 						<th>url</th>
+						<th width="4%">编辑</th>
 						<th class="last" width="4%">删除</th>
 					</tr>
 				</thead>
@@ -67,6 +68,33 @@
 			<tr class="third">
 				<th width="100"><span class="umengADsystem_font_blue">* </span>应用url：</th>
 				<td><input type="text" style="width:230px;" name="appurl" class="input_text"></td>
+			</tr>
+			<tr class="second">
+				<td></td>
+				<td><span class="tips_week_warning">应用url为空或格式不正确！</span></td>
+			</tr>
+			
+		</table>
+		<p class="umengADsystem_align_center" style="margin-top:20px;"><a href="#" class="btn_long">确定</a></p>
+	</div>
+</div>
+<!-- pop end -->
+<!-- pop start -->
+<div class="umengADsystem_update" style="display:none;">
+	<h6><a href="javascript:void(0);" class="btn_close" title="关闭"></a>编辑应用</h6>
+	<div class="main2">
+		<table cellspacing="0" cellpadding="0" border="0" width="100%" class="umengADsystem_table_form">
+			<tr class="third">
+				<th width="100"><span class="umengADsystem_font_blue">* </span>应用名称：</th>
+				<td><input type="text" style="width:230px;" name="updatename" class="input_text" disabled="disabled"></td>
+			</tr>
+			<tr class="second">
+				<td></td>
+				<td><span class="tips_week_warning">应用名称为空或已存在此应用！</span></td>
+			</tr>
+			<tr class="third">
+				<th width="100"><span class="umengADsystem_font_blue">* </span>应用url：</th>
+				<td><input type="text" style="width:230px;" name="updateurl" class="input_text"></td>
 			</tr>
 			<tr class="second">
 				<td></td>
@@ -162,7 +190,7 @@ $('#creatNewApp').click(function() {
         }); 
       // setTimeout($.unblockUI, 2000); 
     });
-$('.umengADsystem_panel_pop .btn_close').click(function(){//关闭blockUI
+$('.umengADsystem_panel_pop .btn_close,.umengADsystem_update .btn_close').click(function(){//关闭blockUI
 	$.unblockUI();
 })
 //弹出end

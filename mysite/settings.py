@@ -157,7 +157,7 @@ SESSION_ENGINE=(
 'django.contrib.sessions.backends.signed_cookies'	
 )
 SESSION_FILE_PATH=(
-'C:/web/session'
+	'/home/sns/code/umtrack_new/session'
 )
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True 
 SESSION_SAVE_EVERY_REQUEST = True

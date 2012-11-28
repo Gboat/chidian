@@ -40,14 +40,13 @@ $(function(){
 			load.loadEnd();
 			for(i in data.apps){
 				load.public.list.push(data.apps[i].appname);
-				o.find('tbody').append('<tr id="'+data.apps[i].appkey+'"><td class="umengADsystem_align_left"><a href="/channels?app_key='+data.apps[i].appkey+'" class="copy_link">'+data.apps[i].appname+'</a></td><td><div style="width:810px; overflow:hidden; word-warp:break-all;">'+data.apps[i].url+'</div></td><td class="del_btn"><a onclick="delApp(\''+data.apps[i].appkey+'\',\''+data.apps[i].appname+'\')" class="ui-icon ui-icon-circle-close"></a></td></tr>');
-			o.find('tbody tr:even').addClass('transbg');
+				o.find('tbody').append('<tr id="'+data.apps[i].appkey+'"><td class="umengADsystem_align_left"><a href="/channels?app_key='+data.apps[i].appkey+'" class="copy_link">'+data.apps[i].appname+'</a></td><td>'+data.apps[i].url+'</td><td class="edit_btn"><a onclick="updateApp(\''+data.apps[i].appkey+'\',\''+data.apps[i].appname+'\',\''+data.apps[i].url+'\')" class="ui-icon ui-icon-pencil"></a></td><td class="del_btn"><a onclick="delApp(\''+data.apps[i].appkey+'\',\''+data.apps[i].appname+'\')" class="ui-icon ui-icon-closethick"></a></td></tr>');
 			}		
 		},
 		makeChannelList : function(o,data){
 			load.loadEnd();
 			$('.umengADsystem_panel_info table th.title').html('应用：'+data.appname);
-			$('.umengADsystem_panel_info table td.title').html(data.url);
+			$('.umengADsystem_panel_info table td.title').html(data.appkey?('Appkey: '+data.appkey):data.url);
 			load.public.appname = data.appname;
 			load.public.url = data.url;
 			var click;
@@ -132,7 +131,7 @@ $(function(){
 
 			$("#theCode").html($("#theCode").prev("a").prev(".dp-c").text());
 			$("#theCode2").html($("#theCode2").prev("a").prev(".dp-c").text());
-			var fls=flashChecker();
+			$("#theCode3").html($("#theCode3").prev("a").prev(".dp-c").text());
 			$(".copyText").each(function(index, element) {
 				$(element).hover(function(){
 					$(element).css("background","#069");
@@ -141,65 +140,17 @@ $(function(){
 					function(){
 					$(element).css("background","#CCC");
 					$(element).css("color","#069");
-					})
-				if(fls.f){
-					$(element).zclip({        
-						path:'/javascripts/ios_channels/ZeroClipboard.swf',        
-						copy:$(element).next("p").text(),
-						beforeCopy:function(){  
-						},        
-						afterCopy:function(){
-							$.blockUI({ 
-								message:  '内容已复制到剪贴板', 
-								css: { 
-									width:'300',
-									top: '30%',
-									border:'5px solid #069',
-									padding:'10px',
-									cursor:'pointer',
-									textAlign:'center',
-									borderRadius:'5px',
-									fontSize:'14px',
-									boxShadow:'2px 2px 5px #000'
-								},
-								overlayCSS:{
-									backgroundColor: 'none',
-									cursor:'normal'
-								}
-							});
-							setTimeout($.unblockUI, 1000);  
-						}    
-					});
-				}
-				if(!fls.f){
-					$(element).click(function(){
-						$(".umengADsystem_panel_clip .main2").text($(element).next("p").text());
-						$.blockUI({ 
-							message:  $('.umengADsystem_panel_clip'), 
-							css: { 
-								width:'450',
-								top: '30%',
-								border:'none',
-								padding:'0',
-								cursor:'default',
-								textAlign:'left',
-								borderRadius:'5px',
-								boxShadow:'2px 2px 5px #000'
-							},
-							overlayCSS:{
-								backgroundColor: '#666',
-								cursor:'normal'
-							}
-						});
-					 	$(".umengADsystem_panel_clip .main2").select();				
-					});
-				}
+				});
+				copyText(element);
+
+
+
 			});
 		},
 		makeChannelDetail : function(o,data){
 			load.loadEnd();
 			$('.app th').html('应用：'+data.app.appname);
-			$('.app td').html(data.app.url);
+			$('.app td').html(data.app.appkey?('Appkey: '+data.app.appkey):data.app.url);
 			$('.channel .main th').html('渠道：'+data.detail.source);
 			$('.channel .main td').html(data.detail.encodeurl);
 			$('.umengADsystem_title_primary a')[0].href = '/channels?app_key='+data.app.appkey;
@@ -360,6 +311,7 @@ $(function(){
 				return true;
 			};
 			function checkUrl(el){
+				//var pattern = /(^http:\/\/)itunes\.apple\.com|^itunes\.apple\.com/;
 				var pattern = /(^http:\/\/)/;
 				return pattern.test($.trim(el.val()));
 				
@@ -371,6 +323,61 @@ $(function(){
 function cutText(text,size){
 	return (!text || text=='' ||text == 'NULL')?text:((text.length>size)?text.substr(0,size)+"...":text);
 }
+var copyText =  function(element){
+			var fls=flashChecker();
+				if(fls.f){
+					$(element).zclip({        
+						path:'/javascripts/ios_channels/ZeroClipboard.swf',        
+						copy:$(element).next("p").text(),
+						beforeCopy:function(){  
+						},        
+						afterCopy:function(){
+							$.blockUI({ 
+								message:  '内容已复制到剪贴板', 
+								css: { 
+									width:'300',
+									top: '30%',
+									border:'5px solid #069',
+									padding:'10px',
+									cursor:'pointer',
+									textAlign:'center',
+									borderRadius:'5px',
+									fontSize:'14px',
+									boxShadow:'2px 2px 5px #000'
+								},
+								overlayCSS:{
+									backgroundColor: 'none',
+									cursor:'normal'
+								}
+							});
+							setTimeout($.unblockUI, 1000);  
+						}    
+					});
+				}
+				if(!fls.f){
+					$(element).click(function(){
+						$(".umengADsystem_panel_clip .main2").text($(element).next("p").text());
+						$.blockUI({ 
+							message:  $('.umengADsystem_panel_clip'), 
+							css: { 
+								width:'450',
+								top: '30%',
+								border:'none',
+								padding:'0',
+								cursor:'default',
+								textAlign:'left',
+								borderRadius:'5px',
+								boxShadow:'2px 2px 5px #000'
+							},
+							overlayCSS:{
+								backgroundColor: '#666',
+								cursor:'normal'
+							}
+						});
+					 	$(".umengADsystem_panel_clip .main2").select();				
+					});
+				}
+} 
 function delChannel(appkey,channelkey,name){
 		$('.umengADsystem_del .main2 span').text('确定要删除渠道"'+name+'"么？该操作不可恢复！');
         $.blockUI({ 
@@ -451,6 +458,63 @@ function delApp(appkey,name){
 			}
         }); 
 
+}
+function updateApp(appkey,name,url){
+ alert_msg("该功能暂不可用");
+ /*       $.blockUI({ 
+            message:  $('.umengADsystem_update'), 
+            css: { 
+				width:'450',
+				top: '30%',
+				border:'none',
+				padding:'0',
+				cursor:'default',
+				textAlign:'left',
+				borderRadius:'5px',
+				boxShadow:'2px 2px 5px #000'
+			},
+			overlayCSS:{
+				backgroundColor: '#666',
+				cursor:'normal'
+			}
+        });
+        $('.umengADsystem_update .second').hide();
+        $('.umengADsystem_update input[name="updatename"]').val(name);
+        $('.umengADsystem_update input[name="updateurl"]').val(url);
+        $(".umengADsystem_update .btn_long").unbind().click(function(){
+        	var newUrl = $('.umengADsystem_update input[name="updateurl"]').val();
+        	if(newUrl == url){
+        		$.unblockUI();
+        	}else{
+        		if(newUrl == ""){
+        			$('.umengADsystem_update .second:gt(0)').show();
+        			$('.umengADsystem_update .second:gt(0) .tips_week_warning').show();
+        		}else{
+         			$('.umengADsystem_update .second:gt(0)').hide();
+        			$('.umengADsystem_update .second:gt(0) .tips_week_warning').hide();       			
+        		}
+        	}
+			var pattern = /(^http:\/\/)/;
+			if(!pattern.test(newUrl)){
+				newUrl = 'http://' + newUrl;
+			}
+			var params = {
+				url : newUrl,
+				name : name
+			};
+			$.getJSON(window.ajaxBaseUrl+'/app/update/'+appkey+'/?callback=?',params,function(data){
+				if(data.status == "1" && data.appkey == appkey){
+					alert_msg("修改成功！");
+					$("#"+appkey).find("td:eq(1)").text(newUrl);
+					$("#"+appkey).find(".edit_btn").attr("onclick","updateApp('"+appkey+"','"+name+"','"+newUrl+"')");
+				}else{
+					alert_msg("参数错误，修改失败！");
+				}
+				$.unblockUI();
+
+			});
+        });
+*/
 }
 function alert_msg(msg){
 	$.blockUI({ 
