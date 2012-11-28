@@ -12,6 +12,7 @@ coverage/
 *.swp
 *.swo
 *.swn
+*.pyc
 config/mongoid.yml
 config/hbase.yml
 config/overrides.yml
