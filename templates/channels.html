@@ -530,7 +530,7 @@ setDefautDate();
 /**日历选择器--结束*/
 $("#changeDate").click(function(){
 	if(window.startDate != $("#startDate").val() || window.endDate != $("#endDate").val())
-	location.href="channels?app_key="+window.appkey+'&startDate='+$("#startDate").val()+'&endDate='+$("#endDate").val();
+	location.href="/channels/?app_key="+window.appkey+'&startDate='+$("#startDate").val()+'&endDate='+$("#endDate").val();
 });
 
 </script>
