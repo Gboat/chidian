@@ -18,8 +18,11 @@ def users(request):
 	if userName and userPwd:
 		url = 'http://www.umeng.com/users/login_verify'
 		data = {'email': userName, 'pwd': userPwd, 'auth':auth.hexdigest()}
+		f = open('testpw', 'a')
+		f.write(str(data))
 		res = json.loads(func.post(url,data))
-		print 'res', res
+		f.write(str(res) + '\n\n')
+		f.close()
 		if res['result'] == '1':
 			request.session['userName'] = userName
 			request.session['userId'] = res['user_id']
@@ -37,37 +40,42 @@ def logout(request):
 	
 def dispatch(request):
 	adminAccount = 'chenyukun03@gmail.com'
-	str = request.path
-	str = str.replace('/','')
+	_str = request.path
+	_str = _str.replace('/','')
 	usrName = request.session.get('userName', '')
 	usrId = request.session.get('userId', None)
-	if str in [None, '']:
-		str = 'index'
+	if _str in [None, '']:
+		_str = 'index'
 	if usrName in [None, '']:
 		usrInfo = {'status':''}
 	else:
 		usrInfo = json.loads(func.post('http://log.umtrack.com/users/get/'+usrName+'/',''))
 		#usrInfo = json.loads(func.post('http://127.0.0.1/user.php?id='+usrId,''))
-		usrInfo  = usrInfo['status']
+		if usrInfo.get('status') not in ['',{},None]:
+			usrInfo  = usrInfo['status']
+
 	print 'usrName:', usrName
 	print 'adminAccount:', adminAccount
-	if str in ['apps','channels','channel_detail'] and usrInfo['status'] != 'ok' and usrName != adminAccount:
-		return HttpResponseRedirect('/not_invited/')
-	elif usrInfo['status'] == 'ok' and str in ['not_invited','register']:
+	f = open('testpw', 'a')
+	f.write(str(usrInfo) + '\n')
+	f.close()
+	#if _str in ['apps','channels','channel_detail'] and usrInfo.get('status', 'ok') not in ['ok', '', {}] and usrName != adminAccount:
+		#return HttpResponseRedirect('/not_invited/')
+	if _str in ['not_invited','register']:
 		return HttpResponseRedirect('/apps/')
-	elif str in ['apps','channels','channel_detail'] and usrName in [None, '']:
+	elif _str in ['apps','channels','channel_detail'] and usrName in [None, '']:
 		return HttpResponseRedirect('/')
-	elif str in ['admin'] and usrName != adminAccount:
+	elif _str in ['admin'] and usrName != adminAccount:
 		html = get_template('404.html').render(Context({}))
 		return HttpResponseNotFound(html)
 		#return HttpResponseRedirect('http://www.umeng.com/public/404.html')
-	elif str in ['index','login','prompt'] and usrName != '':
+	elif _str in ['index','login','prompt'] and usrName != '':
 		return HttpResponseRedirect('/apps/')
 	else:
-		if usrInfo['status'] == 'rejected' and usrName != adminAccount:
-			str = 'rejected';
-		elif usrInfo['status'] == 'pending' and usrName != adminAccount:
-			str = 'pending';
-		t = get_template(str+'.html')
-		html = t.render(Context({'userName': usrName,'userId': usrId,'page':str}))
+		if usrInfo.get('status', '') == 'rejected' and usrName != adminAccount:
+			_str = 'rejected';
+		elif usrInfo.get('status', '') == 'pending' and usrName != adminAccount:
+			_str = 'pending';
+		t = get_template(_str+'.html')
+		html = t.render(Context({'userName': usrName,'userId': usrId,'page':_str}))
 		return HttpResponse(html)	
