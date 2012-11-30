@@ -88,6 +88,7 @@ $(function(){
 				}
 				data.ratecnt.series[j].data = tmp;
 			}
+			var chart;
 			chart = new Highcharts.Chart(
                 {
                     chart: {
@@ -112,7 +113,7 @@ $(function(){
 								formatter: function() {
 									return this.value +'%';
 								}
-            			},
+            			}
 					},
                     series: data.ratecnt.series,
 					tooltip: {
@@ -215,7 +216,7 @@ $(function(){
 					tooltip: {formatter: function() {  return this.series.name + this.x +': '+ this.y;} },
 					yAxis: {
 						lineWidth: 1,
-						tickWidth: 1,
+						tickWidth: 1
 					},
 					 plotOptions: {
 						series: {
@@ -229,7 +230,7 @@ $(function(){
 			$('#chartInstall').renderChart(
                 {
                     chart: {
-                        renderTo: 'chartInstall',
+                        renderTo: 'chartInstall'
                     },
                     title:"",
                     xAxis: {
