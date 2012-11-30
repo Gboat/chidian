@@ -61,7 +61,7 @@ def dispatch(request):
 	f.close()
 	#if _str in ['apps','channels','channel_detail'] and usrInfo.get('status', 'ok') not in ['ok', '', {}] and usrName != adminAccount:
 		#return HttpResponseRedirect('/not_invited/')
-	if _str in ['not_invited','register']:
+	if _str in ['not_invited']:
 		return HttpResponseRedirect('/apps/')
 	elif _str in ['apps','channels','channel_detail'] and usrName in [None, '']:
 		return HttpResponseRedirect('/')
