@@ -17,6 +17,7 @@ urlpatterns = patterns('',
 	('^login/', dispatch),
 	('^logout/', logout),
 	('^users/', users),
+	(r'^ios_channels/',dispatch),
 	
 	(r'^javascripts/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/javascripts'}),
 	(r'^stylesheets/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/stylesheets'}),

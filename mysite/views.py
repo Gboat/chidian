@@ -9,6 +9,7 @@ import settings
 import func	
 import hashlib
 import json
+import types
 
 def users(request):
 	userName = request.POST.get('userName', '')
@@ -23,7 +24,9 @@ def users(request):
 		res = json.loads(func.post(url,data))
 		f.write(str(res) + '\n\n')
 		f.close()
-		if res['result'] == '1':
+		if (type(res) is types.DictType) == False:
+			res = {'result':'-1'}
+		if res.get('result','-1') == '1':
 			request.session['userName'] = userName
 			request.session['userId'] = res['user_id']
 			#print 'Session:', request.session.items()
@@ -36,11 +39,12 @@ def users(request):
 def logout(request):
 	request.session['userName'] = ''
 	request.session['userId'] = ''
-	return HttpResponseRedirect('/')
-	
+	return HttpResponseRedirect('/index')
+
 def dispatch(request):
 	adminAccount = 'chenyukun03@gmail.com'
 	_str = request.path
+	_str = _str.replace('ios_channels/','')
 	_str = _str.replace('/','')
 	usrName = request.session.get('userName', '')
 	usrId = request.session.get('userId', None)
@@ -49,19 +53,25 @@ def dispatch(request):
 	if usrName in [None, '']:
 		usrInfo = {'status':''}
 	else:
-		usrInfo = json.loads(func.post('http://log.umtrack.com/users/get/'+usrName+'/',''))
+		usrInfoJson = json.loads(func.post('http://log.umtrack.com/users/get/'+usrName+'/',''))
 		#usrInfo = json.loads(func.post('http://127.0.0.1/user.php?id='+usrId,''))
 		if usrInfo.get('status') not in ['',{},None]:
-			usrInfo  = usrInfo['status']
+	#if _str in ['apps','channels','channel_detail'] and usrInfo.get('status', 'ok') not in ['ok', '', {}] and usrName != adminAccount:
+		#return HttpResponseRedirect('/not_invited/')
+			usrInfo  = usrInfoJson['status']
 
-	print 'usrName:', usrName
-	print 'adminAccount:', adminAccount
 	f = open('testpw', 'a')
 	f.write(str(usrInfo) + '\n')
 	f.close()
-	#if _str in ['apps','channels','channel_detail'] and usrInfo.get('status', 'ok') not in ['ok', '', {}] and usrName != adminAccount:
-		#return HttpResponseRedirect('/not_invited/')
-	if _str in ['not_invited']:
+
+	if (type(usrInfo) is types.DictType) == False:
+		usrInfo = {"status": ''}
+	else:
+		usrInfo['status'] = usrInfo.get('status','')
+
+	if _str in ['apps','channels','channel_detail'] and usrInfo['status'] != 'ok' and usrName != adminAccount:
+		return HttpResponseRedirect('/not_invited/')
+	elif _str in ['not_invited']:
 		return HttpResponseRedirect('/apps/')
 	elif _str in ['apps','channels','channel_detail'] and usrName in [None, '']:
 		return HttpResponseRedirect('/')
