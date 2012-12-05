@@ -6446,6 +6446,7 @@
 {u'userName': u'dev@yodo1.com', u'status': u'ok'}
 {u'userName': u'dev@yodo1.com', u'status': u'ok'}
 {'status': ''}
+<<<<<<< HEAD
 {'status': ''}
 {'status': ''}
 {'status': ''}
@@ -6552,3 +6553,23 @@
 {'status': ''}
 {'status': ''}
 {'status': ''}
+=======
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{u'qq': u'', u'status': u'ok', u'appUrl': u'', u'userName': u'chenyukun03@gmail.com', u'appName': u'test', u'dt': 1345455874767, u'email': u''}
+{'pwd': u'311jqjyd4', 'email': u'google@shanshanxing.com', 'auth': '57aa78770f391baff2df849b19b6681c'}{u'user_id': u'4efaa0d05270155122000042', u'result': u'1'}
+
+{u'userName': u'google@shanshanxing.com', u'status': u'ok'}

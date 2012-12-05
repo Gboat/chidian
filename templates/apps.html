@@ -28,7 +28,7 @@
 					<tr>
 						<th>应用名称</th>
 						<th>url</th>
-						<th width="4%">编辑</th>
+						<th width="4%" class="hidden">编辑</th>
 						<th class="last" width="4%">删除</th>
 					</tr>
 				</thead>
@@ -150,7 +150,7 @@ $(function(){
 					load.loadStart();
 					load.makeAjax(options,function(o,data){
 						load.loadEnd();
-						o.find('tbody').append('<tr id="'+data.appkey+'"><td class="umengADsystem_align_left"><a  href="/channels?app_key='+data.appkey+'" class="copy_link">'+name+'</a></td><td><div style="width:810px; overflow:hidden; word-warp:break-all;">'+url+'</div></td><td><a onclick="delApp(\''+data.appkey+'\',\''+name+'\')" class="ui-icon ui-icon-circle-close"></a></td></tr>');
+						o.find('tbody').append('<tr id="'+data.appkey+'"><td class="umengADsystem_align_left"><a  href="/channels?app_key='+data.appkey+'" class="copy_link">'+name+'</a></td><td><div style="width:810px; overflow:hidden; word-warp:break-all;">'+url+'</div></td><td class="edit_btn"><a onclick="updateApp(\''+data.appkey+'\',\''+name+'\',\''+url+'\')" class="ui-icon ui-icon-pencil"></a></td><td class="del_btn"><a onclick="delApp(\''+data.appkey+'\',\''+name+'\')" class="ui-icon ui-icon-closethick"></a></td></tr>');
 					});
 					$('.umengADsystem_panel_pop input[name="appname"]').val('');
 					$('.umengADsystem_panel_pop input[name="appurl"]').val('');
@@ -171,6 +171,8 @@ $(function(){
 <script type="text/javascript" >
 //弹出start
 $('#creatNewApp').click(function() { 
+		$('.umengADsystem_panel_pop').find("input[type='text']").val("");
+		$('.umengADsystem_panel_pop').find(".tips_week_warning").hide();
         $.blockUI({ 
             message:  $('.umengADsystem_panel_pop'), 
             css: { 
