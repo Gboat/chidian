@@ -55,10 +55,12 @@ def dispatch(request):
 	else:
 		usrInfoJson = json.loads(func.post('http://log.umtrack.com/users/get/'+usrName+'/',''))
 		#usrInfo = json.loads(func.post('http://127.0.0.1/user.php?id='+usrId,''))
-		if usrInfo.get('status') not in ['',{},None]:
+		if usrInfoJson.get('status') not in ['',{},None]:
 	#if _str in ['apps','channels','channel_detail'] and usrInfo.get('status', 'ok') not in ['ok', '', {}] and usrName != adminAccount:
 		#return HttpResponseRedirect('/not_invited/')
 			usrInfo  = usrInfoJson['status']
+		else:
+			usrInfo = {'status': ''}
 
 	f = open('testpw', 'a')
 	f.write(str(usrInfo) + '\n')
@@ -71,7 +73,7 @@ def dispatch(request):
 
 	if _str in ['apps','channels','channel_detail'] and usrInfo['status'] != 'ok' and usrName != adminAccount:
 		return HttpResponseRedirect('/not_invited/')
-	elif _str in ['not_invited']:
+	elif usrInfo['status'] == 'ok' and _str in ['not_invited','register']:
 		return HttpResponseRedirect('/apps/')
 	elif _str in ['apps','channels','channel_detail'] and usrName in [None, '']:
 		return HttpResponseRedirect('/')
