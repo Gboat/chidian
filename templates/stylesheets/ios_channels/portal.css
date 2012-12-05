@@ -526,3 +526,6 @@ marquee p {
 .register a{
 	font-size:14px;
 }
+.edit_btn{
+	display: none;
+}

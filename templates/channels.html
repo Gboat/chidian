@@ -264,14 +264,13 @@
 				<th width="100"><span class="umengADsystem_font_blue">* </span>渠道名称：</th>
 				<td><input type="text" style="width:230px;" name="channelname" class="input_text"></td>
 			</tr>
-			<tr class="third">
-				<th width="100"></th>
-				<td style="color:#666;">渠道名是为推广渠道建立的名称标识，区分渠道不影响统计数据。</td>
-			</tr>
-			
 			<tr class="second">
 				<td></td>
 				<td><span class="tips_week_warning">渠道名称为空或已存在此渠道！</span></td>
+			</tr>
+			<tr class="third">
+				<th width="100"></th>
+				<td style="color:#666;">渠道名是为推广渠道建立的名称标识，区分渠道不影响统计数据。</td>
 			</tr>
 		</table>
 		<p class="umengADsystem_align_center" style="margin-top:20px;"><a href="#" class="btn_long">确定</a></p>
@@ -412,6 +411,8 @@ $(function(){
 <script type="text/javascript" >
 //弹出start
 $('#creatNewApp').click(function() { 
+		$('.umengADsystem_panel_pop').find("input[type='text']").val("");
+		$('.umengADsystem_panel_pop').find(".tips_week_warning").hide();
         $.blockUI({ 
             message:  $('.umengADsystem_panel_pop'), 
             css: { 
