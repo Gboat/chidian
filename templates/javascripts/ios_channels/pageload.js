@@ -314,7 +314,7 @@ $(function(){
 			function checkUrl(el){
 				//var pattern = /(^http:\/\/)itunes\.apple\.com|^itunes\.apple\.com/;
 				var pattern = /(^http:\/\/)/;
-				return pattern.test($.trim(el.val()));
+				return true;
 				
 			}
 		}
