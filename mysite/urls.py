@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from mysite.views import dispatch,users,logout
+from mysite.views import dispatch,users,logout,updateurl
 import settings
 
 urlpatterns = patterns('',
@@ -17,6 +17,7 @@ urlpatterns = patterns('',
 	('^login/', dispatch),
 	('^logout/', logout),
 	('^users/', users),
+	('^updateurl/', updateurl),
 	(r'^ios_channels/',dispatch),
 	
 	(r'^javascripts/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/javascripts'}),

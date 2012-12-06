@@ -41,6 +41,28 @@ def logout(request):
 	request.session['userId'] = ''
 	return HttpResponseRedirect('/index')
 
+def updateurl(request):
+	usrName = request.session.get('userName', '')
+	usrId = request.session.get('userId', None)
+	_url = request.POST.get('url', '')
+	_appkey = request.POST.get('appkey', '')
+	if usrName in [None, ''] or usrId in [None, '']:
+		return HttpResponse('-1') #no login
+	elif _url in [None, ''] or _appkey in [None, '']:
+		return HttpResponse('-2') #params is not integral
+	else:
+		url = 'http://log.umtrack.com/app/update/'+_appkey+'/?url='+_url+'&userid='+usrId
+		res = json.loads(func.post(url,''))
+		if (type(res) is types.DictType) == False:
+			resStatus = '-3' #res is not a Dict
+			resAppkey = ''
+		else:
+			resStatus = res.get('status','-4') # res is undefined
+			resAppkey = res.get('appkey','')
+		if resAppkey != _appkey:
+			resStatus = '-5' # appkey is not true
+		return HttpResponse(resStatus)
+
 def dispatch(request):
 	adminAccount = 'chenyukun03@gmail.com'
 	_str = request.path
@@ -88,6 +110,10 @@ def dispatch(request):
 			_str = 'rejected';
 		elif usrInfo.get('status', '') == 'pending' and usrName != adminAccount:
 			_str = 'pending';
-		t = get_template(_str+'.html')
-		html = t.render(Context({'userName': usrName,'userId': usrId,'page':_str}))
-		return HttpResponse(html)	
+		try:
+			t = get_template(_str+'.html')
+			html = t.render(Context({'userName': usrName,'userId': usrId,'page':_str}))
+			return HttpResponse(html)
+		except:
+			html = get_template('404.html').render(Context({}))
+			return HttpResponseNotFound(html)
