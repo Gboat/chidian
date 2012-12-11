@@ -418,7 +418,7 @@ marquee p {
 }
 .inuse{
 	width:968px;
-	height:181px;
+	height:151px;
 	margin:0 auto 50px;
 	border:1px solid #ccc;
 	background:#fff;
@@ -427,22 +427,22 @@ marquee p {
 }
 .inuse .list{
 	width:1968px;
-	height:171px;
-	padding:5px 0;
+	height:146px;
+	padding:5px 6px;
 	margin:0 auto;
 }
 .inuse .list li{
-	width:100px;
-	height:174px;
+	width:85px;
+	height:146px;
 	float:left;
 	display:inline;
 	text-align:center;
 	margin:0 11px 0 10px;
 }
 .inuse .list li a{
-	width:100px;
+	width:85px;
 	display:block;
-	height:100px;
+	height:85px;
 	padding-top:20px;
 	text-align:center;
 	color:#333;
@@ -451,8 +451,8 @@ marquee p {
 	display:block;
 	margin:0 auto;
 	margin-bottom:5px;
-	width:100px;
-	height:100px;
+	width:85px;
+	height:85px;
 }
 /* prompt end */
 .register{
@@ -531,6 +531,7 @@ marquee p {
 	width: 72px;
 	margin: 10px 0px 10px 0px;
 	float: right;
+	display:none;
 }
 .icon_tab_left{
 	width: 36px;

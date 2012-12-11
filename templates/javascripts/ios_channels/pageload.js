@@ -40,7 +40,7 @@ $(function(){
 			load.loadEnd();
 			for(i in data.apps){
 				load.public.list.push(data.apps[i].appname);
-				o.find('tbody').append('<tr id="'+data.apps[i].appkey+'"><td class="umengADsystem_align_left"><a href="/channels?app_key='+data.apps[i].appkey+'" class="copy_link">'+data.apps[i].appname+'</a></td><td>'+data.apps[i].url+'</td><td class="edit_btn"><a onclick="updateApp(\''+data.apps[i].appkey+'\',\''+data.apps[i].appname+'\',\''+data.apps[i].url+'\')" class="ui-icon ui-icon-pencil"></a></td><td class="del_btn"><a onclick="delApp(\''+data.apps[i].appkey+'\',\''+data.apps[i].appname+'\')" class="ui-icon ui-icon-closethick"></a></td></tr>');
+				o.find('tbody').append('<tr id="'+data.apps[i].appkey+'"><td class="umengADsystem_align_left"><a href="/channels?app_key='+data.apps[i].appkey+'" class="copy_link">'+data.apps[i].appname+'</a></td><td><div style="width:660px; overflow:hidden; word-warp:break-all;">'+data.apps[i].url+'</div></td><td class="edit_btn"><a onclick="updateApp(\''+data.apps[i].appkey+'\',\''+data.apps[i].appname+'\',\''+data.apps[i].url+'\')" class="ui-icon ui-icon-pencil"></a></td><td class="del_btn"><a onclick="delApp(\''+data.apps[i].appkey+'\',\''+data.apps[i].appname+'\')" class="ui-icon ui-icon-closethick"></a></td></tr>');
 			}		
 		},
 		makeChannelList : function(o,data){
