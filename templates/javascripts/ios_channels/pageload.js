@@ -461,8 +461,7 @@ function delApp(appkey,name){
 
 }
 function updateApp(appkey,name,url){
- alert_msg("该功能暂不可用");
- /*       $.blockUI({ 
+        $.blockUI({ 
             message:  $('.umengADsystem_update'), 
             css: { 
 				width:'450',
@@ -486,6 +485,7 @@ function updateApp(appkey,name,url){
         	var newUrl = $('.umengADsystem_update input[name="updateurl"]').val();
         	if(newUrl == url){
         		$.unblockUI();
+        		return false;
         	}else{
         		if(newUrl == ""){
         			$('.umengADsystem_update .second:gt(0)').show();
@@ -501,21 +501,20 @@ function updateApp(appkey,name,url){
 			}
 			var params = {
 				url : newUrl,
-				name : name
+				name : name,
+				appkey : appkey
 			};
-			$.getJSON(window.ajaxBaseUrl+'/app/update/'+appkey+'/?callback=?',params,function(data){
-				if(data.status == "1" && data.appkey == appkey){
+			$.post('/updateurl/',params,function(data){
+				if(data == "1"){
 					alert_msg("修改成功！");
 					$("#"+appkey).find("td:eq(1)").text(newUrl);
 					$("#"+appkey).find(".edit_btn").attr("onclick","updateApp('"+appkey+"','"+name+"','"+newUrl+"')");
 				}else{
-					alert_msg("参数错误，修改失败！");
+					var errorcode = 'UME00010'+Math.abs(data);
+					alert_msg("参数错误，修改失败！错误代码："+errorcode);
 				}
-				$.unblockUI();
-
 			});
         });
-*/
 }
 function alert_msg(msg){
 	$.blockUI({ 
@@ -536,7 +535,7 @@ function alert_msg(msg){
 			cursor:'normal'
 		}
 	});
-	setTimeout($.unblockUI, 1000);  
+	setTimeout($.unblockUI, 2000);  
 }
 function flashChecker(){
 	var hasFlash=0;　　　　//是否安装了flash
