@@ -7,3 +7,10 @@ tmp/**/*
 .#*
 tmp/
 ._.DS_Store
+<<<<<<< HEAD
+manage_uwsgi.py
+umtrack_fe.ini
+uwsgi_reload.sh
+testpw
+=======
+>>>>>>> d73b462766db09aa14cd72cd03250897e2063f62

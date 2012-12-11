@@ -190,7 +190,7 @@ $('#creatNewApp').click(function() {
 function setDefautDate(){
 	var date = new Date();
     var today = date.getFullYear()+'-'+((date.getMonth()+1<10)?'0'+(date.getMonth()+1):(date.getMonth()+1))+'-'+(date.getDate()<10?'0'+date.getDate():date.getDate());
-    var sevenDayAgo_milliseconds=date.getTime()-1000*60*60*24*7;       
+    var sevenDayAgo_milliseconds=date.getTime()-1000*60*60*24*10;       
     var sDA = new Date();       
     sDA.setTime(sevenDayAgo_milliseconds);       
     var sevenDayAgo = sDA.getFullYear()+'-'+((sDA.getMonth()+1<10)?'0'+(sDA.getMonth()+1):(sDA.getMonth()+1))+'-'+(sDA.getDate()<10?'0'+sDA.getDate():sDA.getDate());
