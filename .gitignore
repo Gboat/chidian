@@ -10,3 +10,4 @@ tmp/
 manage_uwsgi.py
 umtrack_fe.ini
 uwsgi_reload.sh
+testpw
