@@ -108,6 +108,9 @@
 <!-- pop end -->
 </body>
 <script src="/javascripts/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/javascripts/ios_channels/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="/javascripts/ios_channels/ui.js"></script>
+<script type="text/javascript" src="/javascripts/ios_channels/jquery.blockUI-2.39.js"></script>
 <script src="/javascripts/ios_channels/pageload.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
@@ -150,7 +153,7 @@ $(function(){
 					load.loadStart();
 					load.makeAjax(options,function(o,data){
 						load.loadEnd();
-						o.find('tbody').append('<tr id="'+data.appkey+'"><td class="umengADsystem_align_left"><a  href="/channels?app_key='+data.appkey+'" class="copy_link">'+name+'</a></td><td><div style="width:810px; overflow:hidden; word-warp:break-all;">'+url+'</div></td><td class="edit_btn"><a onclick="updateApp(\''+data.appkey+'\',\''+name+'\',\''+url+'\')" class="ui-icon ui-icon-pencil"></a></td><td class="del_btn"><a onclick="delApp(\''+data.appkey+'\',\''+name+'\')" class="ui-icon ui-icon-closethick"></a></td></tr>');
+						o.find('tbody').append('<tr id="'+data.appkey+'"><td class="umengADsystem_align_left"><a  href="/channels?app_key='+data.appkey+'" class="copy_link">'+name+'</a></td><td><div style="width:660px; overflow:hidden; word-warp:break-all;">'+url+'</div></td><td class="edit_btn"><a onclick="updateApp(\''+data.appkey+'\',\''+name+'\',\''+url+'\')" class="ui-icon ui-icon-pencil"></a></td><td class="del_btn"><a onclick="delApp(\''+data.appkey+'\',\''+name+'\')" class="ui-icon ui-icon-closethick"></a></td></tr>');
 					});
 					$('.umengADsystem_panel_pop input[name="appname"]').val('');
 					$('.umengADsystem_panel_pop input[name="appurl"]').val('');
@@ -165,9 +168,6 @@ $(function(){
 	domOpt.init();
 })
 </script>
-<script type="text/javascript" src="/javascripts/ios_channels/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript" src="/javascripts/ios_channels/ui.js"></script>
-<script type="text/javascript" src="/javascripts/ios_channels/jquery.blockUI-2.39.js"></script>
 <script type="text/javascript" >
 //弹出start
 $('#creatNewApp').click(function() { 
