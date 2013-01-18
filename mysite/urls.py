@@ -1,31 +1,26 @@
 from django.conf.urls import patterns, include, url
-from mysite.views import dispatch,users,logout,updateurl
+from mysite.views import *
 import settings
 
 urlpatterns = patterns('',
-	('^$', dispatch),
-	
-	('^index/', dispatch),
-	('^apps/', dispatch),
-	('^channels/', dispatch),
-	('^feedback/', dispatch),
-	('^channel_detail/', dispatch),
-	('^not_invited/', dispatch),
-	('^register/', dispatch),
-	('^prompt/', dispatch),
-	('^admin/', dispatch),
-	('^login/', dispatch),
-	('^logout/', logout),
-	('^users/', users),
-	('^updateurl/', updateurl),
-	(r'^ios_channels/',dispatch),
-	
-	(r'^javascripts/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/javascripts'}),
-	(r'^stylesheets/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/stylesheets'}),
-	(r'^images/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/images'}),
-	
+    ('^$', index),
+    ('^all/', index),
+    ('^hot/',hot),
+    ('^album/',album),
+    ('^counter/',counter),
+    ('^music/',music),
+    ('^friend/',friend),
+    ('^helpinfo',helpinfo),
+    ('^login/', login),
+    ('^login/tip/',login_tip),
+    ('^new/pin/count/(?P<path>.*)$',count),
+    (r'^images/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/images'}),
+    (r'^img/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/img'}),
+    (r'^css/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/css'}),
+    (r'^js/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/js'}),
     
-	# Examples:
+    
+    # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^mysite/', include('mysite.foo.urls')),
 

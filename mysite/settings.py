@@ -5,6 +5,7 @@ TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
+    ('MGong','mg90@foxmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -107,7 +108,8 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	"templates",
+    #"templates",
+    "tpl",
 )
 
 INSTALLED_APPS = (
