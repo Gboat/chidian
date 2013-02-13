@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title><%= h(yield(:title) || "Untitled") %></title>
+    <link rel="shortcut icon" href="/images/favicon.ico"/>
+    <%= csrf_meta_tag %>
+    <%= stylesheet_link_tag 'base', 'pagination', 'dateinput', 'myproduct_layout','jquery.tzSelect','style', :cache => 'cached_lay_tools' %>
+    <%= yield(:head) %>
+    <%= display_meta_tags :site => 'Umeng.com' %>
+    <% @layout_name = 'tools'  %>
+  </head>
+  <body>
+    <div id="b_wrap" class="web_width">
+      <%= render "shared/back/top" %>
+      <div id="b_center">
+        <div class="fl b_leftmenu">
+          <div class="b_product_sel">
+            <% base_url = request.fullpath
+            redirect_url = base_url
+          %>
+            <select class="ltselect" onchange="showSelect(this.value)" style="display:none">
+              <option selected='selected' value="<%= @app.to_param %>">
+                <%= @app.name %>
+              </option>
+              <% @apps.try(:reject){|a| a.id == @app.id }.each do |app| %>
+                <option value="<%= app.to_param %>">
+                  <%= app.name %>
+                </option>
+              <% end %>
+            </select>
+            <div class="b_backtoapp"><a href="<%= apps_path%>"><span class="fl"><pre>«</pre></span> 返回我的产品首页</a><div class="clear"></div></div>
+          </div>
+          <div class="">
+            <div class="accordion">
+
+              <% if current_user.has_permission_to?(:report, :feedbacks)%>
+                <h2 class="l_m_controls">
+                <%= link_to_class_if('用户反馈',feedbacks_app_reports_path(@app,:period => 'days_all'),'reports','feedbacks','','feedbacks_app_reports_path','click') if current_user.has_permission_to?(:report, :feedbacks)%>
+                </h2>
+              <% end %>
+              
+              <% if current_user.has_permission_to?(:app, :upload)%>
+              <h2 class="l_m_controls">
+                  <%= link_to_class_if('自动更新',upload_app_path(@app),'apps','upload','','upload_app_path','click') %>
+              </h2>
+              <% end %>
+
+                <%if !@app.social_enabled%>
+                  <% if current_user.has_permission_to_group?([{:report=>:sns}, {:sns_integration=>:show}]) %>
+                    <h2 class="l_m_controls l_m_controls_one has_son_menu">
+                      <a href="###">SNS分享</a>
+                    </h2>
+                    <div class="pane_con pane_con_one" style="display: none; ">
+                      <ul>
+                        <li><%= link_to_class_if('报表',sns_app_reports_path(@app),'reports','sns') if current_user.has_permission_to?(:report, :sns)%></li>
+                        <% if current_user.demo_user? %>
+                          <li><a class="disabled-link">设置</a></li>
+                        <% else %>
+                          <li><%= link_to_class_if('设置',app_sns_integration_path(@app),'sns_integration','show') if current_user.has_permission_to?(:sns_integration, :show)%></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <% if current_user.has_permission_to_group?([{:social=>:index},{:social=>:user},{:social=>:activity},{:social=>:content},{:sns_integration=>:show}]) %>
+                  <h2 class="l_m_controls l_m_controls_two has_son_menu">
+                      <a href="###">社会化分享</a>
+                  </h2>
+                    <div class="pane_con pane_con_two" style="display: none; ">
+                      <ul>
+                        <li>
+                          <%= link_to_class_if('概况',app_socials_path(@app),'socials','index') if current_user.has_permission_to?(:social, :index)%>
+                        </li>
+                        <li>
+                          <%= link_to_class_if('用户',user_app_socials_path(@app),'socials',['user','user_show']) if current_user.has_permission_to?(:social, :user)%>
+                        </li>
+                        <li>
+                          <%= link_to_class_if('活动',activity_app_socials_path(@app),'socials','activity') if current_user.has_permission_to?(:social, :activity)%>
+                        </li>
+                        <li>
+                          <%= link_to_class_if('内容',content_app_socials_path(@app),'socials',['content','content_show']) if current_user.has_permission_to?(:social, :content)%>
+                        </li>
+                        <li><%= link_to_class_if('设置',app_sns_integration_path(@app),'sns_integration','show') if current_user.has_permission_to?(:sns_integration, :show)%></li>
+                      </ul>
+                    </div>
+                  <% end %>
+                <%end%>
+            </div>
+          </div>
+          <div class="kong35"></div>
+          <%@dev_tools = true%>
+          <%= render "shared/b_sdk_down"%>
+        </div>
+        <%= yield %>
+        <div class="clear"></div>
+      </div>
+
+    </div>
+   
+    <%= render "shared/back/bottom" %>
+
+    <%= javascript_include_tag "jquery.min", 'jquery.tools.min', "highcharts", 'jquery.blockUI', 'rails', :cache=>'cached_lay_tools' %>
+    <%= javascript_include_tag "constant",'common', 'tzSelect/jquery.tzSelect', 'table', 'chart' ,'date', :cache=>'cached_lay_tools_cus'%>
+    <script type="text/javascript">
+      window.appKey = "<%= @app.id.to_s %>";
+      //window.ajaxBaseUrl ='http://10.18.102.194:8020'; //'http://api.umsns.com';//'http://118.194.160.18:8001';
+      // if the config_tab should be displayed by init
+      if (!(/.*\/reports.*/.test(window.location.href) || /.*\/events\/.*/.test(window.location.href)) || (/.*\/feedbacks.*/.test(window.location.href))) {
+        $('.lttab a#config_tab').hover();
+      }
+      
+      $(function() {
+          //新select样式 --begin
+         $('.select_arrow,.selected_value').unbind('click').click(function(e){
+        	e.stopPropagation();
+          $(this).nextAll('.select_list_body').slideToggle(200);
+        });
+        $('.select_list_body ul li').not('.noClick').unbind('click').click(function(e){
+           e.stopPropagation();
+           $(this).closest('.select_option').find('.selected_value').text($(this).find('a').text());
+           $(this).closest('.select_list_body').slideToggle(200);
+        });
+        $(document).click(function(e){
+        	e.stopPropagation();
+        	 if($(e.target).closest('.select_option').length>0||$(e.target).closest('#calroot').length>0){//calroot
+        	 	return false;
+        	 }
+        	$('.select_list_body').slideUp(200);
+        });
+        $('.select_list_body ul li.date_picker').unbind('click').click(function(e){
+        	e.stopPropagation();
+        	$(this).next('li').slideToggle(200);
+        	
+        });
+        
+        //新select样式 --end
+        $(".accordion").tabs(".accordion div.pane_con", {tabs: 'h2.l_m_controls.has_son_menu', effect: 'slide', initialIndex: null});
+       
+        $('h2.l_m_controls:has(a.current)').not('.has_son_menu').addClass('current');
+        
+          $(".pane_con li a").each(function(){
+            if ( $(this).hasClass("current") ){
+              $(this).closest(".pane_con").show().prev(".l_m_controls").addClass("current");
+              
+            }
+          });
+
+        //左侧菜单切换
+        $.tools.tabs.addEffect("slide", function(i, done) {
+          this.getPanes().slideUp().css({backgroundColor: "#fff"});
+          this.getPanes().eq(i).slideDown(function() {
+            $(this).css({backgroundColor: 'transparent'});
+            done.call();
+          });
+        });
+
+        tr_hover($(".b_rightconten table thead tr"), "tr_hover");
+        tr_hover($(".new_silver_table tr"), "current");
+
+
+        //点击显示接口实例
+        $("table.b_user_event_table thead span.interface").click(function() {
+          var thead_class = $(this).parent().parent().parent()[0].className;
+          if ($(this).hasClass("on")) {
+            $(this).removeClass("on");
+            $("." + thead_class + "_con").hide();
+          } else {
+            $(this).addClass("on");
+            $("." + thead_class + "_con").show();
+          }
+        });
+
+       
+
+        $('select.ltselect').ready(function(){
+          var option_l = $('select.ltselect option').length;
+          if(option_l > 0){
+            $('select.ltselect').tzSelect();
+          }
+        });
+
+      });
+
+      function adjust() {
+        var h = $(".conleft")[0].offsetHeight;
+        var main = document.getElementById("main");
+        main.style.minHeight = (h - 5) + "px";
+      };
+
+<% if user_signed_in? && controller_name == 'reports' && action_name == 'index' %>
+    $(function() {
+      var feedback_link = $('#feedback_link');
+      p = feedback_link.position();
+      var feedback_link_width = feedback_link.width();
+      var feedback_link_height = feedback_link.outerHeight();
+      var minder = $('#remin_user1');
+      var minder_width = minder.width();
+      minder.css({left:p.left - minder_width / 2 + feedback_link_width / 2,top:p.top + feedback_link_height + 4});
+      minder.show();
+    });
+
+    $(window).resize(function() {
+      var feedback_link = $('#feedback_link');
+      p = feedback_link.position();
+      var feedback_link_width = feedback_link.width();
+      var feedback_link_height = feedback_link.outerHeight();
+      var minder = $('#remin_user1');
+      var minder_width = minder.width();
+      minder.css({left:p.left - minder_width / 2 + feedback_link_width / 2,top:p.top + feedback_link_height + 4});
+    });
+
+    function close_remind() {
+      $("#remin_user1").css({display:'none'});
+    }
+<% end %>
+    </script>
+    <%= yield(:bottom_js) %>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+.c{ clear:both}
+.umt_left{ width:240px; display:inline-block; float:left;margin-top:20px;}
+.umt_left img{width:175px; height:175px; border-radius:30px; box-shadow:1px 1px 2px #000; margin:20px;}
+.umt_main{ width:530px; display:inline-block; float:left; margin-top:20px; border-left:1px solid #DEDEDE; padding-left:20px; margin-bottom:30px;}
+.umt_left h3{ color:#666; font-weight:bold; font-size:16px; padding:5px;}
+.umt_left ul li{ width:200px; height:30px; background:#EEE; margin:2px 5px; line-height:30px; padding-left:10px; border-left:7px solid #0CF; font-size:14px; cursor:pointer; color:#000;}
+.umt_left ul li:hover{ background:#DDD;}
+.umt_main ul.umt_tab{ padding-left:30px; height:31px; border-bottom:1px solid #CCC;}
+.umt_main ul.umt_tab li{ display:inline-block; padding:0px 10px; line-height:30px; border:1px solid #F7F7F7; margin:0 5px;border-bottom-color:#CCC; cursor:pointer; font-size:16px;}
+.umt_main ul.umt_tab li:hover{ background:#DDD;}
+.umt_main ul.umt_tab li.umt_active{ border-top-color:#CCC;border-left-color:#CCC;border-right-color:#CCC;border-bottom-color:#F7F7F7;}
+.umt_main .pagenav{ height:30px; text-align:right; padding-right:20px; margin-top:5px;}
+.umt_main .pagenav span{ display:inline-block; padding:0px 10px; background:#005176; color:#FFF; height:20px; line-height:20px; margin:5px;}
+.umt_main .pagenav a{ display:inline-block; padding:0px 5px;color:#005176; height:20px; line-height:20px; margin:5px 1px;}
+.umt_main .pagenav a:hover{ background:#005176; color:#FFF; text-decoration:none;}
+.umt_main .umt_list .umt_list_item{ padding:5px; border-bottom:1px dashed #CCC; position:relative;}
+.umt_main .umt_list .umt_list_item:hover{ background:#FFC;}
+.umt_main .umt_list .umt_list_item img{ padding:2px; border:1px solid #CCC; width:48px; height:48px; background:#FFF; float:left; margin:0 10px;}
+.umt_main .umt_list .umt_list_item span{ font-size:14px; display:block; width:500px;}
+.umt_main .umt_list .umt_list_item .manage_btn{ width:15px; height:15px; position:absolute; right:5px; top:5px; display:none;}
+.umt_main .umt_list .umt_list_item ul.lable{ float:right; margin-top:5px; text-align:right;}
+.umt_main .umt_list .umt_list_item ul.lable li{ display:inline-block; height:25px; font-size:11px; color:#999; border-bottom:5px solid #69F; padding:0 10px; line-height:25px; margin:0px;}
+#new_tag{ width:200px; height:25px; background:#EEE; margin:5px 5px 0px 5px; line-height:25px; padding-left:10px;font-size:14px; border:1px solid #CCC;}
+#color_sel{ border:1px solid #CCC; border-top:none;width:190px;  padding:10px 10px 3px 10px; margin-left:5px; box-shadow:0px 0px 2px #000; display:none;}
+#color_sel div{ width:20px; height:20px; background:#CCC; margin:3px; display:inline-block; cursor:pointer;}
+#tag_sel{ width:200px; padding:3px; border-radius:5px; background:#FFF; box-shadow:0px 0px 3px #000; position: absolute; right:50px; top:30%; display:none;}
+#tag_sel h4{ height:25px; line-height:25px; padding-left:5px; cursor:move;}
+#tag_sel .close_btn{ position:absolute; top:5px; right:5px; font-weight:bold; width:15px; height:15px; text-align:center; display:inline-block; line-height:15px;}
+#tag_sel .close_btn:hover{ text-decoration:none; background:#005571; color:#FFF;}
+#tag_sel li{ background:#EEE; margin:2px 0px; line-height:25px; padding-left:10px; border-left:7px solid #0CF; font-size:12px; cursor:pointer;}
+#tag_sel li span{ width:16px; height:16px; display:inline-block; float:right; background:#005176; color:#FFF; line-height:16px; font-size:16px; text-align:center; margin:5px; font-weight:bold;}
+#tag_sel li:hover{ background:#ddd;}
+.sel_all{ float:right;}

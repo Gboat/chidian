@@ -1,0 +1,79 @@
+<div class="footer">
+	<div class="list clearfix">
+		<dl class="first">
+			<dt><span class="caption"><a href="<%= analytics_overview_path %>">统计工具</a></span></dt>
+			<dd><a href="<%= analytics_overview_path %>">概况</a></dd>
+			<dd><a href="<%= analytics_channel_path %>">渠道</a></dd>
+			<dd><a href="<%= analytics_customevents_path %>">自定义事件</a></dd>
+			<dd><a href="<%= analytics_funnel_path %>">漏斗</a></dd>
+			<dd><a href="<%= analytics_tools_path %>">开发工具</a></dd>
+		</dl>
+		<dl class="secondary">
+			<dt><span class="caption"><a href="<%= component_sns_path %>">组件</a></span></dt>
+			<dd><a href="<%= component_sns_path %>">SNS分享</a></dd>
+			<dd><a href="<%= component_feedback_path %>">用户反馈</a></dd>
+			<dd><a href="<%= component_update_path %>">自动更新</a></dd>
+		</dl>
+		<dl class="third">
+			<dt><span class="caption"><a href="<%= appunion_adsmanage_path %>">应用联盟</a></span></dt>
+			<dd><a href="<%= appunion_adsmanage_path %>">广告管理</a></dd>
+			<dd><a href="<%= appunion_exchange_path %>">交换网络</a></dd>
+		</dl>
+		<dl class="fourth">
+			<dt><span class="caption"><a href="<%= umengdata_reports_path %>">友盟数据</a></span></dt>
+			<dd><a href="<%= umengdata_reports_path %>">数据报告</a></dd>
+		</dl>
+		<dl class="fifth">
+			<dt><span class="caption"><a href="http://dev.umeng.com" target="_blank">开发者中心</a></span></dt>
+			<dd><a href="http://dev.umeng.com/getstart/getstart_ios.html" target="_blank">快速入门</a></dd>
+			<dd><a href="http://dev.umeng.com/faq/faq_com.html" target="_blank">FAQ</a></dd>
+			<dd><a href="http://dev.umeng.com/sdkdownload/sdkdownload_quickdownload.html" target="_blank">SDK下载</a></dd>
+			<dd><a href="http://dev.umeng.com/doc/document_ana_android.html" target="_blank">文档中心</a></dd>
+			<dd><a href="http://dev.umeng.com/salon/salon_index.html" target="_blank">开发者沙龙</a></dd>
+		</dl>
+		<dl class="fifth">
+			<dt><span class="caption"><a href="/lab" target="_blank">友盟实验室</a></span></dt>
+			<dd><a href="/lab" target="_blank">Android渠道打包工具</a></dd>
+			<dd><a href="http://www.umtrack.com/" target="_blank">iOS渠道激活统计工具</a></dd>
+		</dl>
+		<dl class="sixth">
+			<dt><span class="caption"><a href="<%= aboutus_about_path %>">关于我们</a></span></dt>
+			<dd><a href="<%= aboutus_about_path %>" target="_blank">关于友盟</a></dd>
+			<dd><a href="<%= aboutus_contact_path %>" target="_blank">联系友盟</a></dd>
+			<dd><a href="<%= aboutus_partner_path %>" target="_blank">合作伙伴</a></dd>
+			<dd><a href="<%= joinus_path %>" target="_blank">加入友盟</a></dd>
+			<dd><a href="http://blog.umeng.com" target="_blank">Blog</a></dd>
+			<dd><a href="http://t.sina.com.cn/umengcom" target="_blank">新浪微博</a></dd>
+			<dd><a href="http://t.qq.com/umengumeng" target="_blank">腾讯微博</a></dd>
+		</dl>
+		<div class="copyright">
+			<p><span class="logo">移动开发者服务平台</span></p>
+			<p>© 2010-2012 Umeng.com , All Rights Reserved.</p>
+			<p><a href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action;jsessionid=WP0XP9XL01psnWRLpbY2Lfn8LyfmvJVbrQsyy3B8yfnT1MkjFmGQ!-903956894" target="_blank">京ICP备案11021163号-6</a> | <a href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action;jsessionid=WP0XP9XL01psnWRLpbY2Lfn8LyfmvJVbrQsyy3B8yfnT1MkjFmGQ!-903956894" target="_blank">京公网安备 110108008330</a></p>
+		</div>
+	</div>
+</div>
+
+<% content_for :bottom_js do %>
+
+		</script>
+  
+  <script type="text/javascript">
+    function change_input_hover_bg(n_input,n_normal,n_hover){
+      $(n_input).mouseover(function(){
+        $(this)[0].src=n_hover;
+      }).mouseout(function(){
+        $(this)[0].src=n_normal;
+      });
+    }
+    <% if current_user %>
+      var user_id = '<%= current_user.id.to_s %>';
+      var is_today_user = <%= current_user.today_user? %>;
+      var is_demo_user = <%= current_user.demo_user? %>;
+    <% end %>
+  </script>
+
+  <% if "production" == Rails.env && request.host.include?("umeng.") %>
+    <%= javascript_include_tag 'click'  %>
+  <% end %>
+<% end %>

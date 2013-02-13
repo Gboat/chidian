@@ -1,0 +1,26 @@
+<project name="chidian" default="deploy" basedir=".">
+    <!-- usage: just type ant, it will excute codeclone -->
+    <tstamp>
+        <format
+            pattern="yyyyMMdd_hhmm"
+            property="TIME" />
+    </tstamp>
+
+    <property name="codefolder" 
+            value="code/chidian/${TIME}" />
+
+    <property name="code_clone_command" 
+            value="mkdir -p ${codefolder}; 
+                    cd ${codefolder}; 
+                    git clone git@github.umeng.com:chenyukun/umtrack_new.git --depth 1"/>
+
+    <target name="deploy">
+        <tstamp/>
+        <exec executable="ssh">
+            <arg value="sns@10.18.10.21"/>
+            <arg value="-p 18021"/>
+            <arg value="${code_clone_command}" />
+        </exec>
+    </target>
+
+</project>

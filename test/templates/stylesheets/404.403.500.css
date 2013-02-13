@@ -1,0 +1,349 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* public begin */
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	font-size: 12px;
+	width: 100%;
+	background-position: 0 0;
+	font-family:微软雅黑, Lucida Grande, Geneva, Arial, Verdana, Lucida Sans Unicode, Helvetica, sans-serif;
+}
+
+h1 {
+	font-size: 18px;
+}
+
+h2 {
+	font-size: 16px;
+}
+
+h3 {
+	font-size: 14px;
+}
+
+h4 {
+	font-size: 12px;
+}
+
+a:link {
+	color: #000;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #000;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #000;
+	text-decoration: underline;
+}
+
+select,
+input,
+img,
+select {
+	vertical-align: middle;
+	border: 0;
+}
+
+a:active {
+	color: #000;
+	text-decoration: underline;
+}
+
+.none {
+	display: none;
+}
+
+.block {
+	display: block;
+}
+
+ul {
+	list-style: none;
+}
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+h3.login_error {
+	padding: 5px 0 10px;
+	color: #EA5200;
+
+	font-weight: 100;
+	background-position: 0 3px;
+	line-height: 180%;
+}
+
+h3.login_error #error_explanation ul li{
+	padding: 5px 0 10px;
+	color: #EA5200;
+	font-weight: 100;
+	background-position: 0 3px;
+	line-height: 180%;
+}
+
+  #main{
+      background-image: url("/images/new_ui/404/line.png");
+      background-repeat: repeat;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    #main-text{
+      font-size: 30px;
+      text-align: center;
+      margin-top: -190px;
+      color: #777;
+    }
+    .links{
+      margin-top: 20px;
+    }
+.developer_right_content p.fl img,.deveguide_info div.fl img{
+	width:250px;
+	height:186px
+}
+.web_width {
+	width: 950px;
+	margin: 0 auto; /*设置最小高度 利用了ie6 !important bug 和min-height不认识的bug及ie6当高度为固定内容超过时,,自动撑开的特性..总的来说都是为了ie6才用这种方法的*/
+/*min-height:600px;*/
+/*height:auto !important;*/
+/*height:600px;*/
+/*overflow:visible;*/
+}
+
+.web_width_index {
+	width: 950px;
+	margin: 0 auto;
+}
+
+.web_width_con {
+	width: 870px;
+	margin: 0 auto;
+}
+
+.kong5yuan {
+	background-image: url("../images/new_ui/kong5yuan.jpg");
+	background-repeat: no-repeat;
+	height: 5px;
+	overflow: hidden;
+	font-size: 1px;
+}
+.kong5yuan766 {
+	background-image: url("../images/new_ui/register/register_content_bg_center766.jpg");
+	background-repeat: no-repeat;
+	height: 5px;
+	overflow: hidden;
+	font-size: 1px;
+}
+
+.kong5yuan_enterprise {
+	background-image: url("../images/new_ui/kong5yuan_enterprise.jpg");
+	background-repeat: no-repeat;
+	height: 5px;
+	overflow: hidden;
+	font-size: 1px;
+}
+
+.kong35 {
+	height: 35px;
+	overflow: hidden;
+}
+
+.kong10 {
+	height: 10px;
+	overflow: hidden;
+}
+
+span.fz18 {
+	font-size: 18px;
+}
+
+.kong20 {
+	height: 20px;
+	overflow: hidden;
+}
+
+span.fz22 {
+	font-size: 22px;
+}
+
+span.fz24 {
+	font-size: 24px;
+	font-weight: 100;
+}
+
+span.fz26 {
+	font-size: 26px;
+	font-weight: 700;
+}
+
+.kong_w_60 {
+	width: 60px;
+	height: 10px;
+	font-size: 1px;
+	overflow: hidden;
+}
+
+h3.first_title {
+	font-size: 16px;
+	font-weight: 100;
+	margin-bottom: 10px;
+	padding:7px 0 0 10px;
+	/*font-weight: bold;*/
+
+}
+
+h3.second_title {
+	color: #363636;
+
+	font-size: 16px;
+	font-weight: 100;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.al {
+	text-align: left;
+}
+
+.ac {
+	text-align: center;
+}
+
+.ar {
+	text-align: right;
+}
+
+textarea.input_205 {
+	width: 203px;
+	height: 100px;
+	border: 1px solid #9b9b9b;
+}
+
+input.input_205 {
+	width: 203px;
+	height: 23px;
+	border: 1px solid #9b9b9b;
+}
+
+/*top begin*/
+#top {
+	background-color: #4561A2;
+	/*background-image: url(../images/new_ui/header.jpg);*/
+	/*background-repeat: no-repeat;*/
+	/*background-position: center top;*/
+	height: 52px;
+	color: #fff;
+}
+#top .web_width {
+	background-image: url(../images/new_ui/main_men_bg.png);background-repeat: no-repeat;
+}
+#top a.logo {
+	margin-top: 0px;
+	display: block;
+	text-indent:-99999px;
+	width: 170px;
+	height: 52px;
+	/*background-color: #0ff;*/
+	/*background-image: url(../images/new_ui/main_men_bg.jpg);*/
+}
+
+#top ul.menu {
+	padding-left: 75px;
+
+}
+
+#top ul.menu li {
+	float: left;
+	/*margin-right: 30px;*/
+}
+
+#top ul.menu li a {
+	display: block;
+	float: left;
+	color: #fff;
+	font-weight: 700;
+	font-size: 16px;
+	/*height: 33px;*/
+	/*padding-top: 20px;*/
+	text-indent: -99999px;
+	width: 100px;
+	height: 52px;
+	background-image: url(../images/new_ui/main_men_bg.png);
+}
+
+#top ul.menu li.statistic a{
+	background-position: -245px 0px;
+}
+#top ul.menu li.statistic a:hover,#top ul.menu li.statistic a.current {
+	background-position: -245px -52px;
+}
+
+#top ul.menu li.tools a{
+	background-position: -345px 0px;
+}
+#top ul.menu li.tools a:hover,#top ul.menu li.tools a.current {
+	background-position: -345px -52px;
+}
+
+
+#top ul.menu li.promotion a{
+ 	background-position: -445px 0px;
+	width: 94px;
+ }
+#top ul.menu li.promotion a:hover,#top ul.menu li.promotion a.current {
+ 	background-position: -445px -52px;
+ }
+
+#top img.new_icon{
+  border: 0;
+  position: absolute;
+  right: 13px;
+  top: 8px;
+}
+
+#top ul.menu li.report a{
+	background-position: -539px 0px;
+	width: 96px;
+ }
+ #top ul.menu li.report a:hover,#top ul.menu li.report a.current {
+	background-position: -539px -52px;
+ }
+ #top ul.menu li.developer a{
+	background-position: -630px 0px;
+ }
+ #top ul.menu li.developer a:hover,#top ul.menu li.developer a.current {
+	background-position: -630px -52px;
+ }
+
+#top .login_reg {
+	padding-top: 25px;
+	font-weight: 700;
+
+}
+
+#top .login_reg a {
+	color: #fff;
+	font-weight: 100;
+	font-size: 12px;
+}
+
+/*top end*/
