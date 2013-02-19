@@ -9,30 +9,49 @@ class mysql():
             self.db=MySQLdb.connection(host=MYSQLDB['host'],user=MYSQLDB["user"],passwd=MYSQLDB["pwd"],db=MYSQLDB['name'])
         return db
 
-    def insert(self, table, value):
-        keys = str(value.keys)
-        values = str(value.values)
-        SQL = "insert " + table + " "
-        SQL += str(value.keys) + 
-        SQL += "("+ str(value.values) +")"
+    @classmethod
+    def query(self,sql):
         try:
-            db.query(SQL)
+            rs = list(db.query(sql))
+            return rs
+        except Exception as e:
+            print e
+            return False
+
+    @classmethod
+    def insert(self, table, values, debug=False):
+        sql = "insert into" + table + \
+            "(" + str(values.keys) + ") " + \
+            "values (" + str(values.values) + ")"
+        try:
+            if debug:
+                print sql
+            self.query(sql)
             return True
         except Exception as e:
             print e
             return False
 
-    def update(self, table, key, value):
-        SQL = "update " + table + " "
-        SQL += "set "
-        SQL += "where "
+    @classmethod
+    def update(self, table, value, where, debug=False):
+        va = ''
+        for k,v in value.items():
+            if va:
+                va += k +"="+ v 
+            else:
+                va += ","+ k +"="+ v
+
+        sql = "update " + table + " " + \
+              "set "+ va + " " + \
+              "where "+ where
         try:
-            db.query(SQL)
+            self.query(sql)
             return True
         except Exception as e:
             print e
             return False
 
+    @classmethod
     def delete(self,table,key):
         try:
             db.query(SQL)
@@ -41,19 +60,11 @@ class mysql():
             print e
             return False
 
+    @classmethod
     def dump(self,table):
         try:
             db.query(SQL)
             return True
-        except Exception as e:
-            print e
-            return False
-
-    def query(self,sql):
-        SQL = sql
-        try:
-            rs = list(db.query(SQL))
-            return rs
         except Exception as e:
             print e
             return False

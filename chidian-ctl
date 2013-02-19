@@ -1,1 +1,15 @@
+#!/bin/bash 
+#========================================================================
+#   FileName: chidian-ctl
+#     Author: gongming
+#      Email: mg90@foxmail.com
+#   HomePage: wrud.sinaapp.com
+# LastChange: 2013-02-14 16:08:05
+#Description: chidian control center
+#========================================================================
+
+show_usages(){
+    echo "chidian help infomation:"
+    echo "command:"
+}
 

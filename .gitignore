@@ -7,3 +7,9 @@ tmp/**/*
 .#*
 tmp/
 ._.DS_Store
+
+*.swp
+data/pic/*
+test/*
+temp/*
+log/*

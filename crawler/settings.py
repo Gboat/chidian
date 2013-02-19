@@ -1,7 +1,9 @@
+import os
+PROJECT_DIR = os.path.realpath(os.path.dirname(__file__) + '/../')
 # 90 days of delay for image expiration
 IMAGES_EXPIRES = 90
 
-IMAGES_STORE = '/home/boat/workspace/data/pic'
+IMAGES_STORE =  PROJECT_DIR +'data/pic'
 IMAGES_THUMBS = {
     'small': (50, 50),
     'big': (270, 270),
@@ -10,13 +12,7 @@ IMAGES_MIN_HEIGHT = 110
 IMAGES_MIN_WIDTH = 110
 LOG_LEVEL = "DEBUG"#"WARNING"
 
-AAPT_PATH = '/home/boat/workspace/code/minicrawler/tool/'
-STORE_PATH = '/home/boat/workspace/data/package'
-PROJECT_PATH = '/home/boat/workspace/code/minicrawler'
-LIMIT = 1000
-
 BOT_NAME = 'crawler'
-BOT_VERSION = '0.1.0'
 
 SPIDER_MODULES = ['crawler.spiders']
 NEWSPIDER_MODULE = 'crawler.spiders'
@@ -36,8 +32,8 @@ ITEM_PIPELINES = [
     'crawler.pipelines_img.MyImagesPipeline',
     ]
 EXTENSIONS = {
-    'scrapy.contrib.corestats.CoreStats': 500,
-    'crawler.statstodb.StatsToMongo': 1000,
+    #'scrapy.contrib.corestats.CoreStats': 500,
+    #'crawler.statstodb.StatsToMongo': 1000,
     }
 
 DOWNLOADER_MIDDLEWARES = {
