@@ -4,10 +4,10 @@ PROJECT_DIR = os.path.realpath(os.path.dirname(__file__) + '/../')
 IMAGES_EXPIRES = 90
 
 IMAGES_STORE =  PROJECT_DIR +'/data/pic'
-IMAGES_THUMBS = {
-    'small': (50, 50),
-    'big': (270, 270),
-    }
+#IMAGES_THUMBS = {
+#    'small': (50, 50),
+#    'big': (270, 270),
+#    }
 IMAGES_MIN_HEIGHT = 110
 IMAGES_MIN_WIDTH = 110
 LOG_LEVEL = "DEBUG"#"WARNING"
