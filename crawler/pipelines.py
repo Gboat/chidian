@@ -1,6 +1,7 @@
 import pymongo
 from datetime import datetime
-
+from cStringIO import StringIO
+from PIL import Image
 from scrapy.exceptions import DropItem
 from scrapy.conf import settings
 from scrapy import log
@@ -8,6 +9,7 @@ from scrapy import log
 from scrapy.contrib.pipeline.images import ImagesPipeline
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
+
 
 class MyImagesPipeline(ImagesPipeline):
 

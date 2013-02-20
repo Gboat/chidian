@@ -3,7 +3,7 @@ PROJECT_DIR = os.path.realpath(os.path.dirname(__file__) + '/../')
 # 90 days of delay for image expiration
 IMAGES_EXPIRES = 90
 
-IMAGES_STORE =  PROJECT_DIR +'data/pic'
+IMAGES_STORE =  PROJECT_DIR +'/data/pic'
 IMAGES_THUMBS = {
     'small': (50, 50),
     'big': (270, 270),
@@ -29,7 +29,7 @@ DEFAULT_ITEM_CLASS = 'crawler.items.CrawlerItem'
 ITEM_PIPELINES = [
     #'scrapy.contrib.pipeline.images.ImagesPipeline',
     #'crawler.pipelines_um.mongo_storage',
-    'crawler.pipelines_img.MyImagesPipeline',
+    'crawler.pipelines.MyImagesPipeline',
     ]
 EXTENSIONS = {
     #'scrapy.contrib.corestats.CoreStats': 500,
