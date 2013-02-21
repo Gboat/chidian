@@ -17,7 +17,8 @@ from crawler.items import *
 class Spider(CrawlSpider):
     name = 'pic'
     start_urls = [
-            'http://image.baidu.com/i?tn=listjson&word=liulan&oe=utf-8&ie=utf8&tag1=%E7%BE%8E%E9%A3%9F&tag2=%E5%85%A8%E9%83%A8&sorttype=0&pn=60&rn=60&requestType=1&1360056617726',
+            #'http://image.baidu.com/i?tn=listjson&word=liulan&oe=utf-8&ie=utf8&tag1=%E7%BE%8E%E5%A5%B3&tag2=%E5%85%A8%E9%83%A8&sorttype=0&pn=1200&rn=860&requestType=1&1360056617726',
+            'http://image.baidu.com/i?tn=listjson&word=liulan&oe=utf-8&ie=utf8&tag1=%E7%BE%8E%E9%A3%9F&tag2=%E5%85%A8%E9%83%A8&sorttype=0&pn=0&rn=6000&requestType=1&1360056617726',
             #'http://pic.sogou.com/pics?start=72&load_data=load_data&pic_num=24&liwidth=null&len=24&query=%C3%C0%CA%B3&w=05002100&p=&_asf=pic.sogou.com&_ast=1360133653&oq=meishi&ri=0&sourceid=sugg',
             #'http://cn.bing.com/images/async?q=美食&async=content&first=98&count=35&dgst=ro_u2489*&IID=images.1&SFX=4&IG=0b961585c355413990b4e438359ea115&CW=1600&CH=492',
             #'http://www.google.com.hk/search?q=%E7%BE%8E%E9%A3%9F&hl=zh-CN&newwindow=1&safe=strict&tbo=d&site=imghp&biw=1615&bih=158&tbm=isch&ijn=2&ei=FgASUfHbCqbBiQfugYGgBQ&start=100&csl=1',

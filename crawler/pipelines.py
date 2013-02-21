@@ -9,10 +9,9 @@ from scrapy import log
 from scrapy.contrib.pipeline.images import ImagesPipeline
 from scrapy.exceptions import DropItem
 from scrapy.http import Request
+from crawler.settings import MONGODB
 
-
-class MyImagesPipeline(ImagesPipeline):
-
+class images_process(ImagesPipeline):
     def get_images(self, response, request, info):
         key = self.image_key(request.url)
         orig_image = Image.open(StringIO(response.body))
@@ -48,15 +47,18 @@ class MyImagesPipeline(ImagesPipeline):
         if not image_paths:
             raise DropItem("Item contains no images")
         item['image_paths'] = image_paths
+        item['name'] = image_paths[0][5::]
         return item
 
-class mysql_storage(object):
+class mongo_storage(object):
+    db = None
     def __init__(self):
-        mysql.conn()
-        #redis.conn()
-        #mongo.conn()
+        self.db=pymongo.Connection(MONGODB['host'],MONGODB['port'])[MONGODB['name']]
 
     def process_item(self, item, spider):
         if 'ImgItem' == item.__class__.__name__:
-            mysql.insert("chidian_pin",dict(item))
-        return item
+            self.process_img_item(item)
+
+    def process_img_item(self,item):
+        if self.db.pin.find({"name":item['name']}).count() is 0:
+            self.db.pin.insert(dict(item))

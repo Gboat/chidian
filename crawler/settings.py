@@ -29,7 +29,8 @@ DEFAULT_ITEM_CLASS = 'crawler.items.CrawlerItem'
 ITEM_PIPELINES = [
     #'scrapy.contrib.pipeline.images.ImagesPipeline',
     #'crawler.pipelines_um.mongo_storage',
-    'crawler.pipelines.MyImagesPipeline',
+    'crawler.pipelines.images_process',
+    'crawler.pipelines.mongo_storage',
     ]
 EXTENSIONS = {
     #'scrapy.contrib.corestats.CoreStats': 500,
@@ -48,8 +49,8 @@ MONGODB_PORT = 27017
 #MONGODB_DB = "marketcrawler"
 MONGODB_DB = "test"
 
-MONGODB = {'host':'localhost','port':27017,'name':'test'}
-MYSQLDB = {'host':'localhost','port':27017,'name':'test','user':'root','pwd':'root'}
+MONGODB = {'host':'localhost','port':27017,'name':'chidian'}
+MYSQLDB = {'host':'localhost','port':27017,'name':'chidian','user':'root','pwd':'root'}
 
 MAIL_DEBUG = False
 MAIL_HOST = 'mail.google.com'
