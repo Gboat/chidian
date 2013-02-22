@@ -7,7 +7,7 @@ class ImgItem(Item):
     refer = Field()
     tags = Field()
     path = Field()
-    hight = Field()
+    height = Field()
     width = Field()
     image_urls = Field()
     image_paths = Field()

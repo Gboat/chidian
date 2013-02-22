@@ -1293,7 +1293,7 @@ $.extend(Tuli.mods,{
             loading:{
                 finished: undefined,
                 finishedMsg: "你好坏，都被你看光了!",
-                img: 'images/waterLoading.gif',
+                img: '/images/waterLoading.gif',
                 msg: null,
                 msgText: "",
                 selector: null,

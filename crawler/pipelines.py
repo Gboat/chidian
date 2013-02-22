@@ -46,7 +46,7 @@ class images_process(ImagesPipeline):
         image_paths = [x['path'] for ok, x in results if ok]
         if not image_paths:
             raise DropItem("Item contains no images")
-        item['image_paths'] = image_paths
+        #item['image_paths'] = image_paths
         item['name'] = image_paths[0][5::]
         return item
 

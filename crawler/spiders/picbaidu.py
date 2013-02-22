@@ -69,8 +69,8 @@ def parse_baidu(response):
             item['link'] = p['obj_url']
             item['image_urls'] = p['obj_url']
             item['refer'] = p['from_url']
-            item['hight'] = p['image_height']
-            item['width'] = p['image_height']
+            item['height'] = p['image_height']
+            item['width'] = p['image_width']
             items.append(item)
     return items
 
