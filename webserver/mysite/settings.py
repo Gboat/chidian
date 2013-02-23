@@ -1,7 +1,8 @@
 # Django settings for mysite project.
+import os
+PROJECT_DIR = os.path.realpath(os.path.dirname(__file__) + '/../../')
 DEBUG = True#False
 TEMPLATE_DEBUG = DEBUG
-
 ADMINS = (
     ('MGong','mg90@foxmail.com'),
 )
@@ -42,7 +43,7 @@ SECRET_KEY = 'a_-hk_um8g(9ay@zhar0=hldb-zh&amp;+h83xq_fgzhgsy9*^e5x7'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+#   'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,7 +58,6 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'mysite.urls'
-
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
@@ -66,7 +66,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     #"templates",
-    "tpl",
+    PROJECT_DIR+"/webserver/tpl",
 )
 
 INSTALLED_APPS = (

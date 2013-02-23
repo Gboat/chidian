@@ -1,24 +1,67 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 from django.template.loader import get_template
 from django.template import Context
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import HttpResponseNotFound
+
 import datetime
 import settings
 import func
 import hashlib
 import json
 import types
+import pymongo
+from pymongo.objectid import ObjectId
+import random
+
+class mongo():
+    db = None
+    @classmethod
+    def get_db(self):
+        if self.db is None:
+            self.db = pymongo.Connection("localhost",27017)['chidian']
+        return self.db
 
 def index(request):
+    #首页信息
+    data = request.path.split("/")
+    print data
+    """
+    if len(data) is 5:
+        categray =int(data[2])
+        pagenum =int(data[3][:-5:])
+    else :
+        categray = 0
+        pagenum = 1
+    """
+    pagenum=random.randint(1,290)
+    db = mongo.get_db()
+    rs = list(db.pin.find({"height":{"$exists":True},"width":{"$exists":True}},
+        {"name":1,"tags":1,"width":1,"height":1,"_id":1},skip=(pagenum*20),limit=20))#.skip(pos).limit(pagesize)
+    rs_ok = []
+    for item in rs:
+        item['height'] = int(196*item['height']/item['width'])
+        item['width'] = 196
+        item['pinid'] = item['_id']
+        rs_ok.append(item)
+
     t = get_template('index.html')
-    html = t.render(Context({}))
+    html = t.render(Context({"rs":rs_ok}))
     return HttpResponse(html)
 
 def album(request):
-    parh = request.path
     album_id = request.POST.get("album_id")
-    random = request.POST.get("random")
-    html = get_template('album.html').render(Context({}))
+    print album_id
+    pin_id = album_id
+    #random = request.POST.get("random")
+    db = mongo.get_db()
+    rs = db.pin.find_one({"_id":ObjectId(album_id)})
+    c = Context({"name":rs['name'],"pin_id":pin_id,"album_id":album_id,
+        "height":rs['height'],"tags":rs['tags']})
+    height=(750*rs['height']/rs['width'])
+    html = get_template('album.html').render(Context({"name":rs['name'],"height":height}))
+    print html
     return HttpResponse(html)
 
 def counter(request):

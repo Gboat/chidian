@@ -21,6 +21,7 @@ urlpatterns = patterns('',
 
     (r'^images/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/images'}),
     (r'^img/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/img'}),
+    (r'^pic/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.PROJECT_DIR+'/data/pic'}),
     (r'^ms/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/ms'}),
     (r'^css/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/css'}),
     (r'^js/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.TEMPLATE_DIRS[0]+'/js'}),
