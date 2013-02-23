@@ -7,7 +7,6 @@ from django.http import HttpResponseNotFound
 
 import datetime
 import settings
-import func
 import hashlib
 import json
 import types
@@ -24,7 +23,9 @@ class mongo():
         return self.db
 
 def index(request):
-    #首页信息
+    """
+    default views for site
+    """
     data = request.path.split("/")
     print data
     """
@@ -60,9 +61,28 @@ def album(request):
     c = Context({"name":rs['name'],"pin_id":pin_id,"album_id":album_id,
         "height":rs['height'],"tags":rs['tags']})
     height=(750*rs['height']/rs['width'])
-    html = get_template('album.html').render(Context({"name":rs['name'],"height":height}))
-    print html
-    return HttpResponse(html)
+    
+    data = {}
+    data['data'] = {}
+    data['data']['qq'] = None
+    data['data']['nickname'] = u"\u7cd6\u8001\u864e"
+    data['data']['user_id'] = 1244578889
+    data['data']['album_type'] = 0
+    data['data']['is_already_follow'] = False
+    data['data']['unlock_pin_count'] = 256
+    data['data']['large_head_url'] = "/images/"
+    data['data']['album_width'] = 750
+    data['data']['lock_pin_count'] = 16
+    data['data']['origin_album_id'] = 1358647116519
+    data['data']['album_id'] = 1358647116519
+    pin = [{"pin_id": "1358654397556", "large_image_url": "/pic/full/"+rs['name'], "large_image_height": height }]
+    data['data']['pin_info_list'] = pin
+
+    data['data']['album_name']=rs['tags']
+    data['reason'] = []
+    data['ok'] = True
+
+    return HttpResponse(json.dumps(data))
 
 def counter(request):
     return HttpResponse("100000")
