@@ -11,7 +11,7 @@ import hashlib
 import json
 import types
 import pymongo
-from pymongo.objectid import ObjectId
+#from pymongo.objectid import ObjectId
 import random
 
 class mongo():
@@ -27,7 +27,6 @@ def index(request):
     default views for site
     """
     data = request.path.split("/")
-    print data
     """
     if len(data) is 5:
         categray =int(data[2])
@@ -57,7 +56,8 @@ def album(request):
     pin_id = album_id
     #random = request.POST.get("random")
     db = mongo.get_db()
-    rs = db.pin.find_one({"_id":ObjectId(album_id)})
+    #rs = db.pin.find_one({"_id":ObjectId(album_id)})
+    rs = db.pin.find_one()
     c = Context({"name":rs['name'],"pin_id":pin_id,"album_id":album_id,
         "height":rs['height'],"tags":rs['tags']})
     height=(750*rs['height']/rs['width'])
