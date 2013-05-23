@@ -11,9 +11,6 @@ urlpatterns = patterns('',
     ('^album/',album),
     ('^user/',user),
     ('^counter/',counter),
-
-    #('^cart/',include("cart.urls")),
-
     ('^new/',new),
     ('^music/',music),
     ('^friend/',friend),
