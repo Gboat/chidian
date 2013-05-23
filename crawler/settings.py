@@ -27,8 +27,6 @@ USER_AGENT_LIST = [
 
 DEFAULT_ITEM_CLASS = 'crawler.items.CrawlerItem'
 ITEM_PIPELINES = [
-    #'scrapy.contrib.pipeline.images.ImagesPipeline',
-    #'crawler.pipelines_um.mongo_storage',
     'crawler.pipelines.images_process',
     'crawler.pipelines.mongo_storage',
     ]

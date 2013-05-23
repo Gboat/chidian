@@ -1,4 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 import pymongo
+import xmlrpclib
+import requests
+import re
+from md5 import md5
 from datetime import datetime
 from cStringIO import StringIO
 from PIL import Image
@@ -46,15 +52,15 @@ class images_process(ImagesPipeline):
         image_paths = [x['path'] for ok, x in results if ok]
         if not image_paths:
             raise DropItem("Item contains no images")
-        #item['image_paths'] = image_paths
-        item['name'] = image_paths[0][5::]
+        else:
+            #item['image_paths'] = image_paths
+            item['name'] = image_paths[0][5::]
         return item
 
 class mongo_storage(object):
     db = None
     def __init__(self):
         self.db=pymongo.Connection(MONGODB['host'],MONGODB['port'])[MONGODB['name']]
-
     def process_item(self, item, spider):
         if 'ImgItem' == item.__class__.__name__:
             self.process_img_item(item)
@@ -62,3 +68,52 @@ class mongo_storage(object):
     def process_img_item(self,item):
         if self.db.pin.find({"name":item['name']}).count() is 0:
             self.db.pin.insert(dict(item))
+            if re.match(ur".*\.jpg",item['link']):
+                self.wordpress(item)
+                pass
+               #self.datacore("CHIDIAN",item['link'] + " " + item['tags'])
+    def wordpress(self,item):
+        if re.match(ur".*\.jpg",item['link']):
+            wp_url = "http://chidian/wp/xmlrpc.php"
+            wp_user= "admin"
+            wp_pass= "admin"
+            wp_blog_id = ""
+
+            status_drft = 0
+            status_published = 1
+
+            server = xmlrpclib.ServerProxy(wp_url)
+
+            title = item['tags']
+            content = "<img src=\"http://localhost:8000/pic/thumbs/orign/"+item['name']+"\" height=\""+str(int(750*item["height"]/item["width"])) +"\" width=\"750\" >"
+            print content
+            categories = [u"default"]
+            tags = [u"美食",u"食品"]
+
+            data = {'title':title,
+                    'description':content,
+                    #'dateCreated':xmlrpclib.DateTime(datetime.now()),
+                    'categories':categories,
+                    'mt_keywords':tags,
+                    'post_status':'publish',
+                    }
+
+            post_id = server.metaWeblog.newPost(wp_blog_id, wp_user, wp_pass, data, status_published)
+            print post_id
+
+    def datacore(self, username, content):
+        APIURL = "http://localhost/datacore/api.php"
+        data = {}
+        data['__API__[charset]'] = 'utf-8'
+        data['__API__[output]'] = 'json' 
+        data['__API__[app_key]'] = 476991604  
+        data['__API__[app_secret]'] = '315bd254d9d56da49e47261a278379cc'
+        #ata['__API__[app_key]'] = 1446517087#476991604  
+        #data['__API__[app_secret]'] = '610f11361c3f3b7e83a69b8ff3f9ebfd'#'315bd254d9d56da49e47261a278379cc' 
+        data['__API__[username]'] = 'admin' 
+        data['__API__[password]'] = md5('admin'+md5('admin').hexdigest()).hexdigest()
+        data['mod'] = 'topic'
+        data['code'] = 'add'
+        data['content'] = username + ' ' + content.replace("#"," ").replace("@","&")
+
+        r = requests.post(APIURL,data=data)

@@ -1,6 +1,6 @@
 # Create your views here.
 from cart import Cart
-from myproducts.models import Product
+from models import Product
 
 def add_to_cart(request, product_id, quantity):
     product = Product.objects.get(id=product_id)
@@ -13,3 +13,4 @@ def remove_from_cart(request, product_id):
     cart.remove(product)
 
 def get_cart(request):
+    return render_to_response('cart.html', dict(cart=Cart(request)))

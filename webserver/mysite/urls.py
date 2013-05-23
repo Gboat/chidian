@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     ('^user/',user),
     ('^counter/',counter),
 
-    ('^cart/',cart),
+    #('^cart/',include("cart.urls")),
 
     ('^new/',new),
     ('^music/',music),
